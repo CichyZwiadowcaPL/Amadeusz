@@ -3,30 +3,37 @@ import Layout from '../layouts/Layout.astro';
 
 const projects = [
   {
-    name: 'Sparrow I',
+    name: 'Nuada I',
     status: 'Flown',
     summary:
-      'Our first single-stage sounding rocket, built to validate airframe and recovery systems.',
+      'Our first single-stage sounding rocket, built to validate airframe, recovery, and avionics systems.',
     tags: ['Rocketry', 'Recovery'],
   },
   {
-    name: 'Compass Flight Computer',
+    name: 'Nuada II',
     status: 'In development',
     summary:
-      'An open, low-cost flight computer with onboard logging, GPS, and a redundant recovery trigger.',
-    tags: ['Avionics', 'Software'],
+      'A dual-deploy successor to Nuada I, targeting higher altitude with an upgraded airframe and avionics stack.',
+    tags: ['Rocketry', 'Avionics'],
   },
   {
-    name: 'Sparrow II',
+    name: 'Thermal Resistance Composite',
+    status: 'In development',
+    summary:
+      'A composite material developed in-house for high-temperature airframe and nozzle applications.',
+    tags: ['Materials', 'Research'],
+  },
+  {
+    name: 'Liquid Engine',
     status: 'Planning',
     summary:
-      'A dual-deploy successor to Sparrow I, targeting higher altitude with the same simple design philosophy.',
-    tags: ['Rocketry', 'Propulsion'],
+      'A liquid-propellant rocket engine, designed from first principles as the basis for future vehicles.',
+    tags: ['Propulsion'],
   },
 ];
 ---
 
-<Layout title="Projects" description="Aerospace projects built and flown by Vector Aerospace.">
+<Layout title="Projects" description="Aerospace projects built by Aerospace Development Group.">
   <section class="intro">
     <div class="wrap intro-inner">
       <p class="eyebrow">Projects</p>
@@ -75,7 +82,7 @@ const projects = [
   }
 
   .projects-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .project-card {
@@ -129,7 +136,7 @@ const projects = [
     padding: 4px 10px;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     .projects-grid {
       grid-template-columns: 1fr;
     }
