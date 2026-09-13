@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const team = [
+  { name: 'Amadeusz Gajewski', role: 'Founder & Lead Engineer' },
+  { name: 'Team member', role: 'Propulsion' },
+  { name: 'Team member', role: 'Avionics & Software' },
+  { name: 'Team member', role: 'Structures' },
+];
+
+const values = [
+  {
+    title: 'Mission',
+    body: 'Make aerospace engineering approachable by building small, well-documented projects that anyone can learn from.',
+  },
+  {
+    title: 'Approach',
+    body: 'Short iteration cycles, honest post-flight reviews, and a bias toward flying hardware over endless simulation.',
+  },
+];
+---
+
+<Layout title="About" description="The story and the people behind Vector Aerospace.">
+  <section class="intro">
+    <div class="wrap intro-inner">
+      <p class="eyebrow">About us</p>
+      <h1>A small team founded around one idea: keep aerospace simple.</h1>
+      <p class="lede">
+        We started Vector Aerospace to build the kind of small, real aerospace
+        projects we wished existed when we were learning — rockets and
+        avionics that are documented, testable, and built by a handful of
+        people rather than a big organization.
+      </p>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="wrap grid values-grid">
+      {values.map((value) => (
+        <div class="card">
+          <h2>{value.title}</h2>
+          <p>{value.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="team">
+    <div class="wrap">
+      <p class="eyebrow">The team</p>
+      <h2>Who's building this.</h2>
+      <div class="grid team-grid">
+        {team.map((member) => (
+          <div class="card team-card">
+            <div class="avatar" aria-hidden="true">{member.name.charAt(0)}</div>
+            <div>
+              <p class="team-name">{member.name}</p>
+              <p class="team-role">{member.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .intro-inner {
+    padding-block: 80px 40px;
+    max-width: 760px;
+  }
+
+  .intro h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    margin: 16px 0 20px;
+  }
+
+  .lede {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .values-grid h2 {
+    font-size: 1.2rem;
+    margin: 0 0 10px;
+  }
+
+  .values-grid p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .team h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 8px 0 32px;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #04141c;
+  }
+
+  .team-name {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .team-role {
+    margin: 2px 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 720px) {
+    .values-grid,
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

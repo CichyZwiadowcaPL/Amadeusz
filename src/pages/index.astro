@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const stats = [
+  { value: '3', label: 'Active projects' },
+  { value: '12', label: 'Team members' },
+  { value: '2024', label: 'Founded' },
+];
+
+const highlights = [
+  {
+    title: 'Small by design',
+    body: 'We stay lean so every decision moves fast and every person on the team owns real hardware.',
+  },
+  {
+    title: 'Build, test, repeat',
+    body: 'We favor cheap, fast iteration over long design cycles — fly small things often.',
+  },
+  {
+    title: 'Open about our work',
+    body: 'Progress, failures, and lessons learned are shared openly with anyone who wants to follow along.',
+  },
+];
+---
+
+<Layout title="Home">
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Aerospace, kept simple</p>
+      <h1>We design and fly small aerospace projects.</h1>
+      <p class="hero-lede">
+        Vector Aerospace is a small founding team building rockets, avionics, and
+        flight software from the ground up — no bureaucracy, just hardware that flies.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/projects">See our projects</a>
+        <a class="btn btn-ghost" href="/contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap stats-grid">
+      {stats.map((stat) => (
+        <div class="card stat-card">
+          <div class="stat-value">{stat.value}</div>
+          <div class="stat-label">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="highlights">
+    <div class="wrap">
+      <p class="eyebrow">Why we're different</p>
+      <h2>A small team, on purpose.</h2>
+      <div class="grid highlights-grid">
+        {highlights.map((item) => (
+          <div class="card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero-inner {
+    padding-block: 96px 64px;
+    max-width: 720px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin: 16px 0 20px;
+  }
+
+  .hero-lede {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 0 0 32px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .stat-card {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-size: 0.9rem;
+  }
+
+  .highlights h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 8px 0 32px;
+  }
+
+  .highlights-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .highlights-grid h3 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+  }
+
+  .highlights-grid p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 800px) {
+    .stats-grid,
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

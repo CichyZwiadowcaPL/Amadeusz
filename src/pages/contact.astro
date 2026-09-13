@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const contactEmail = 'hello@example.com';
+
+const channels = [
+  { label: 'Email', value: contactEmail, href: `mailto:${contactEmail}` },
+  { label: 'Location', value: 'Poland', href: undefined },
+];
+---
+
+<Layout title="Contact" description="Get in touch with the Vector Aerospace team.">
+  <section class="intro">
+    <div class="wrap intro-inner">
+      <p class="eyebrow">Contact</p>
+      <h1>Let's talk.</h1>
+      <p class="lede">
+        Interested in what we're building, want to collaborate, or have
+        questions about a project? Send us a message.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="wrap contact-grid">
+      <form class="card form" method="post" action={`mailto:${contactEmail}`}>
+        <label>
+          Name
+          <input type="text" name="name" required placeholder="Your name" />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required placeholder="you@example.com" />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="5" required placeholder="What's on your mind?"></textarea>
+        </label>
+        <button class="btn btn-primary" type="submit">Send message</button>
+      </form>
+
+      <div class="channels">
+        {channels.map((channel) => (
+          <div class="card channel-card">
+            <p class="channel-label">{channel.label}</p>
+            {channel.href ? (
+              <a class="channel-value" href={channel.href}>{channel.value}</a>
+            ) : (
+              <p class="channel-value">{channel.value}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .intro-inner {
+    padding-block: 80px 40px;
+    max-width: 640px;
+  }
+
+  .intro h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    margin: 16px 0 20px;
+  }
+
+  .lede {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .form input,
+  .form textarea {
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  .form input:focus,
+  .form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .form button {
+    align-self: flex-start;
+    border: none;
+    cursor: pointer;
+  }
+
+  .channels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .channel-card {
+    padding: 20px;
+  }
+
+  .channel-label {
+    margin: 0 0 6px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .channel-value {
+    margin: 0;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  a.channel-value:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 760px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

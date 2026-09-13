@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    name: 'Sparrow I',
+    status: 'Flown',
+    summary:
+      'Our first single-stage sounding rocket, built to validate airframe and recovery systems.',
+    tags: ['Rocketry', 'Recovery'],
+  },
+  {
+    name: 'Compass Flight Computer',
+    status: 'In development',
+    summary:
+      'An open, low-cost flight computer with onboard logging, GPS, and a redundant recovery trigger.',
+    tags: ['Avionics', 'Software'],
+  },
+  {
+    name: 'Sparrow II',
+    status: 'Planning',
+    summary:
+      'A dual-deploy successor to Sparrow I, targeting higher altitude with the same simple design philosophy.',
+    tags: ['Rocketry', 'Propulsion'],
+  },
+];
+---
+
+<Layout title="Projects" description="Aerospace projects built and flown by Vector Aerospace.">
+  <section class="intro">
+    <div class="wrap intro-inner">
+      <p class="eyebrow">Projects</p>
+      <h1>What we're building.</h1>
+      <p class="lede">
+        Every project starts small, gets documented as we go, and flies as
+        soon as it's ready. Here's where things stand.
+      </p>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="wrap grid projects-grid">
+      {projects.map((project) => (
+        <article class="card project-card">
+          <div class="project-head">
+            <h2>{project.name}</h2>
+            <span class="status">{project.status}</span>
+          </div>
+          <p>{project.summary}</p>
+          <ul class="tags">
+            {project.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .intro-inner {
+    padding-block: 80px 40px;
+    max-width: 720px;
+  }
+
+  .intro h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    margin: 16px 0 20px;
+  }
+
+  .lede {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .project-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .project-head h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+
+  .project-card p {
+    margin: 0;
+    color: var(--text-muted);
+    flex-grow: 1;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tags li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+
+  @media (max-width: 900px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

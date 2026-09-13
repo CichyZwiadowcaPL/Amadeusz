@@ -1,0 +1,35 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p>&copy; {year} Vector Aerospace. All rights reserved.</p>
+    <p class="footer-note">Built by a small team who likes rockets more than paperwork.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .footer-inner {
+    padding-block: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: space-between;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .footer-note {
+    margin: 0;
+  }
+
+  .footer-inner p {
+    margin: 0;
+  }
+</style>
