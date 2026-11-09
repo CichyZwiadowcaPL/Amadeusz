@@ -36,3 +36,4 @@ Most content lives in plain data files — no page code needs to change:
 - `src/data/services.ts` — consultancy services, products and the "how it works" steps
 - `src/pages/about.astro` — team members
 - Colours: `src/styles/global.css`
+- Logo and icons: `public/logo.png`, `public/favicon.png`, `public/apple-touch-icon.png`
