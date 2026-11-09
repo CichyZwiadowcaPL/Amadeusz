@@ -1,11 +1,15 @@
 ---
+import { site } from '../data/site';
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <p>&copy; {year} Aerospace Development Group. All rights reserved.</p>
-    <p class="footer-note">Built by a small team who likes rockets more than paperwork.</p>
+    <p>&copy; {year} {site.name} — {site.tagline}. All rights reserved.</p>
+    <p class="footer-note">
+      <a href={`mailto:${site.email}`}>{site.email}</a> · {site.location}
+    </p>
   </div>
 </footer>
 

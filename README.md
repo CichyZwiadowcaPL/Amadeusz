@@ -1,13 +1,14 @@
-# Vector Aerospace
+# Aerospace Development Group
 
-A small multi-page website for an aerospace founding team, built with [Astro](https://astro.build).
+Website for the ADG engineering bureau — R&D progress, engineering consultancy and products — built with [Astro](https://astro.build).
 
 ## Pages
 
 - `/` — Home
-- `/about` — About the team
-- `/projects` — Projects
-- `/contact` — Contact
+- `/research` — R&D progress (programme stages + progress log)
+- `/services` — Engineering consultancy services and products
+- `/about` — About the bureau and team
+- `/contact` — Contact / enquiry form (Netlify Forms)
 
 ## Development
 
@@ -25,9 +26,13 @@ npm run build
 npm run preview
 ```
 
-## Customizing
+## Updating content
 
-- Brand name, colors, and copy: `src/components/Nav.astro`, `src/components/Footer.astro`, `src/styles/global.css`
-- Team members: `src/pages/about.astro`
-- Projects: `src/pages/projects.astro`
-- Contact email: `src/pages/contact.astro`
+Most content lives in plain data files — no page code needs to change:
+
+- `src/data/site.ts` — company name, tagline, email, location
+- `src/data/research.ts` — R&D programmes (and their stage) and the progress log.
+  Add a new entry to the top of `updates` whenever something happens.
+- `src/data/services.ts` — consultancy services, products and the "how it works" steps
+- `src/pages/about.astro` — team members
+- Colours: `src/styles/global.css`

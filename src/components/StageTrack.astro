@@ -1,0 +1,65 @@
+---
+import { stages } from '../data/research';
+
+interface Props {
+  stage: number;
+}
+
+const { stage } = Astro.props;
+---
+
+<div class="track" role="img" aria-label={`Stage: ${stages[stage]} (${stage + 1} of ${stages.length})`}>
+  <ol>
+    {stages.map((label, i) => (
+      <li class={i < stage ? 'done' : i === stage ? 'current' : ''}>
+        <span class="bar"></span>
+        <span class="label">{label}</span>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  ol {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bar {
+    display: block;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+  }
+
+  .done .bar {
+    background: var(--accent);
+  }
+
+  .current .bar {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--accent) 0 6px,
+      #4a6aa8 6px 12px
+    );
+  }
+
+  .label {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .current .label {
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
