@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import StageTrack from '../components/StageTrack.astro';
 import { programmes, updates, stages } from '../data/research';
 import { services } from '../data/services';
+import { site } from '../data/site';
 
 const active = programmes.filter((p) => p.stage < stages.length - 1).length;
 const completed = programmes.length - active;
@@ -11,7 +12,7 @@ const stats = [
   { value: String(active), label: 'Active R&D programmes' },
   { value: String(completed), label: 'Completed programmes' },
   { value: String(services.length), label: 'Engineering services' },
-  { value: '2024', label: 'Founded' },
+  { value: String(site.founded), label: 'Founded' },
 ];
 
 const latest = updates.slice(0, 3);
@@ -23,9 +24,10 @@ const latest = updates.slice(0, 3);
       <p class="eyebrow">Engineering bureau · Research &amp; development</p>
       <h1>We research, design and build engineering solutions.</h1>
       <p class="hero-lede">
-        Aerospace Development Group is an engineering bureau with its own R&amp;D team. We develop
-        new technology in-house, and we put the same skills to work for clients who need
-        engineering consultancy or custom products.
+        Since 2021, Aerospace Development Group has been developing its own aerospace
+        technology. Today we are a Dutch engineering bureau with an in-house R&amp;D team, and we
+        put the same skills to work for clients who need engineering consultancy or custom
+        products.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="/services">What we can do for you</a>

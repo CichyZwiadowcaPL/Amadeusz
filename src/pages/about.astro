@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageIntro from '../components/PageIntro.astro';
+import { history } from '../data/history';
 
 const team = [
   { name: 'Amadeusz Gajewski', role: 'Founder & Lead Engineer' },
@@ -27,9 +28,10 @@ const values = [
 
 <Layout title="About" description="The story and the people behind Aerospace Development Group.">
   <PageIntro eyebrow="About us" title="An engineering bureau built around its own R&D.">
-    Aerospace Development Group started as a team building rockets and avionics from the
-    ground up. Today we are an engineering bureau: we keep developing our own technology,
-    and we help other companies and institutions solve their engineering problems.
+    Aerospace Development Group was founded in 2021 to develop its own rocketry systems.
+    Since then it has grown into an engineering bureau, registered in the Netherlands, that
+    develops its own aerospace technology and helps other companies with engineering
+    consultancy and product development.
   </PageIntro>
 
   <section class="values">
@@ -40,6 +42,41 @@ const values = [
           <p>{value.body}</p>
         </div>
       ))}
+    </div>
+  </section>
+
+  <section class="history">
+    <div class="wrap">
+      <p class="eyebrow">Our history</p>
+      <h2>From a rocketry project to an engineering bureau.</h2>
+      <ol class="history-list">
+        {history.map((item) => (
+          <li>
+            <p class="year">{item.year}</p>
+            <div class="history-body">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="ecosystem">
+    <div class="wrap">
+      <div class="card ecosystem-card">
+        <div>
+          <p class="eyebrow">Ecosystem</p>
+          <h2>Part of the Dutch aerospace &amp; technology community.</h2>
+        </div>
+        <p>
+          We work with universities, aerospace organisations and student teams across the
+          Netherlands. These partnerships keep our research grounded and help bring new
+          technology to the wider ecosystem. Interested in working together?
+          <a href="/contact?topic=R%26D%20partnership">Get in touch</a>.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -77,9 +114,91 @@ const values = [
     color: var(--text-muted);
   }
 
+  .history h2,
   .team h2 {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin: 8px 0 32px;
+  }
+
+  .history-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 860px;
+  }
+
+  .history-list li {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+  }
+
+  .year {
+    margin: 0;
+    padding-top: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: right;
+  }
+
+  .history-body {
+    position: relative;
+    padding: 0 0 32px 28px;
+    border-left: 2px solid var(--border);
+  }
+
+  .history-list li:last-child .history-body {
+    padding-bottom: 0;
+  }
+
+  .history-body::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+    box-sizing: border-box;
+  }
+
+  .history-list li:last-child .history-body::before {
+    background: var(--accent);
+  }
+
+  .history-body h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+  }
+
+  .history-body p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .ecosystem-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px 48px;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .ecosystem-card h2 {
+    margin: 8px 0 0;
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  }
+
+  .ecosystem-card p:not(.eyebrow) {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .ecosystem-card a {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .team-grid {
@@ -119,8 +238,24 @@ const values = [
 
   @media (max-width: 860px) {
     .values-grid,
-    .team-grid {
+    .team-grid,
+    .ecosystem-card {
       grid-template-columns: 1fr;
+    }
+
+    .ecosystem-card {
+      padding: 28px;
+    }
+
+    .history-list li {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .year {
+      text-align: left;
+      padding: 0 0 6px 28px;
+      border-left: 2px solid var(--border);
     }
   }
 </style>

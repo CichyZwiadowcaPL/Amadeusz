@@ -17,8 +17,8 @@ export const programmes: Programme[] = [
     area: 'Rocketry',
     stage: 4,
     summary:
-      'Single-stage sounding rocket built to validate our airframe, recovery and avionics systems.',
-    next: 'Flight data feeds directly into the Nuada II design.',
+      'Our first mission, started in 2021: a research-focused rocket that validated our own airframe, recovery and avionics systems. Nominated for the Dutch Aerospace Fund Prize in 2022.',
+    next: 'Laid the technical foundation for the company and for Nuada II.',
   },
   {
     name: 'Nuada II',
@@ -46,15 +46,15 @@ export const programmes: Programme[] = [
   },
 ];
 
-// Progress log — newest first. Add an entry every time something happens.
+// Progress log — add an entry every time something happens (any order; sorted newest first).
 export interface Update {
-  date: string; // YYYY-MM
+  date: string; // YYYY-MM or YYYY
   programme: string;
   title: string;
   body: string;
 }
 
-export const updates: Update[] = [
+const log: Update[] = [
   {
     date: '2026-10',
     programme: 'Thermal Resistance Composite',
@@ -74,9 +74,23 @@ export const updates: Update[] = [
     body: 'Kick-off of propulsion research, starting with a propellant combination trade study.',
   },
   {
-    date: '2026-05',
+    date: '2026-07',
+    programme: 'Company',
+    title: 'ADG officially registered',
+    body: 'Aerospace Development Group is now officially registered with the Dutch Chamber of Commerce (KvK).',
+  },
+  {
+    date: '2022',
     programme: 'Nuada I',
-    title: 'Flight campaign completed',
-    body: 'Airframe, recovery and avionics validated in flight. Post-flight review published internally.',
+    title: 'Nominated for the Dutch Aerospace Fund Prize',
+    body: 'The Nuada I project was nominated for the Dutch Aerospace Fund Prize.',
+  },
+  {
+    date: '2021',
+    programme: 'Nuada I',
+    title: 'Nuada I mission started',
+    body: 'Work began on our first research-focused rocket and our own rocketry systems.',
   },
 ];
+
+export const updates = [...log].sort((a, b) => b.date.localeCompare(a.date));
