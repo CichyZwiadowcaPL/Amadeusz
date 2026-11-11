@@ -23,10 +23,10 @@ export const programmes: Programme[] = [
   {
     name: 'Nuada II',
     area: 'Rocketry · Avionics',
-    stage: 1,
+    stage: 0,
     summary:
       'Dual-deploy successor to Nuada I, targeting higher altitude with an upgraded airframe and avionics stack.',
-    next: 'Finalising the avionics architecture and airframe layout.',
+    next: 'Defining requirements and exploring concepts for the airframe and avionics.',
   },
   {
     name: 'Thermal Resistance Composite',
@@ -64,8 +64,8 @@ const log: Update[] = [
   {
     date: '2026-08',
     programme: 'Nuada II',
-    title: 'Design phase started',
-    body: 'Requirements set from Nuada I lessons learned. Work moved on to the dual-deploy recovery system.',
+    title: 'Concept phase started',
+    body: 'Collecting lessons learned from Nuada I and exploring concepts for the dual-deploy recovery system.',
   },
   {
     date: '2026-06',
