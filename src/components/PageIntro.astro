@@ -1,0 +1,37 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+}
+
+const { eyebrow, title } = Astro.props;
+---
+
+<section class="intro">
+  <div class="wrap intro-inner">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lede"><slot /></p>
+  </div>
+</section>
+
+<style>
+  .intro-inner {
+    padding-block: 80px 24px;
+  }
+
+  .intro-inner > * {
+    max-width: 760px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    margin: 16px 0 20px;
+  }
+
+  .lede {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+</style>

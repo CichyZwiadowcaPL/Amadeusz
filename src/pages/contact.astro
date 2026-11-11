@@ -1,40 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { site } from '../data/site';
 
-const contactEmail = 'info@adg-aerospace.com';
+const topics = ['Engineering consultancy', 'Products', 'R&D partnership', 'Careers', 'Other'];
 
 const channels = [
-  { label: 'Email', value: contactEmail, href: `mailto:${contactEmail}` },
-  { label: 'Location', value: 'Poland', href: undefined },
+  { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+  { label: 'Location', value: site.location, href: undefined },
 ];
 ---
 
-<Layout title="Contact" description="Get in touch with the Aerospace Development Group team.">
-  <section class="intro">
-    <div class="wrap intro-inner">
-      <p class="eyebrow">Contact</p>
-      <h1>Let's talk.</h1>
-      <p class="lede">
-        Interested in what we're building, want to collaborate, or have
-        questions about a project? Send us a message.
-      </p>
-    </div>
-  </section>
+<Layout title="Contact" description="Get in touch with Aerospace Development Group.">
+  <PageIntro eyebrow="Contact" title="Let's talk.">
+    Need engineering support, interested in our products or want to collaborate on research?
+    Send us a message. The more you tell us about your project, the better we can help.
+  </PageIntro>
 
   <section class="contact">
     <div class="wrap contact-grid">
-      <form class="card form" method="post" action={`mailto:${contactEmail}`}>
+      <form
+        class="card form"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="company-website"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>Leave this empty <input name="company-website" /></label>
+        </p>
+        <div class="row">
+          <label>
+            Name
+            <input type="text" name="name" required placeholder="Your name" />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required placeholder="you@example.com" />
+          </label>
+        </div>
         <label>
-          Name
-          <input type="text" name="name" required placeholder="Your name" />
+          <span>Organisation <span class="optional">(optional)</span></span>
+          <input type="text" name="organisation" placeholder="Company or institution" />
         </label>
         <label>
-          Email
-          <input type="email" name="email" required placeholder="you@example.com" />
+          Topic
+          <select name="topic" id="topic">
+            {topics.map((t) => <option value={t}>{t}</option>)}
+          </select>
         </label>
         <label>
           Message
-          <textarea name="message" rows="5" required placeholder="What's on your mind?"></textarea>
+          <textarea
+            name="message"
+            rows="6"
+            required
+            placeholder="Describe your project, what you need and your timeline."
+          ></textarea>
         </label>
         <button class="btn btn-primary" type="submit">Send message</button>
       </form>
@@ -50,30 +73,31 @@ const channels = [
             )}
           </div>
         ))}
+        <div class="card channel-card">
+          <p class="channel-label">What happens next</p>
+          <p class="muted small">
+            We read every message and reply with a short call or written proposal to scope
+            your project.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 </Layout>
 
+<script>
+  // Pre-select the topic when linked as /contact?topic=Products
+  const topic = new URLSearchParams(window.location.search).get('topic');
+  const select = document.getElementById('topic') as HTMLSelectElement | null;
+  if (topic && select && [...select.options].some((o) => o.value === topic)) {
+    select.value = topic;
+  }
+</script>
+
 <style>
-  .intro-inner {
-    padding-block: 80px 40px;
-    max-width: 640px;
-  }
-
-  .intro h1 {
-    font-size: clamp(2rem, 4.5vw, 2.8rem);
-    margin: 16px 0 20px;
-  }
-
-  .lede {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-  }
-
   .contact-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: 24px;
     align-items: start;
   }
@@ -81,6 +105,12 @@ const channels = [
   .form {
     display: flex;
     flex-direction: column;
+    gap: 18px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 18px;
   }
 
@@ -92,7 +122,16 @@ const channels = [
     color: var(--text-muted);
   }
 
+  .optional {
+    font-size: 0.8rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+
   .form input,
+  .form select,
   .form textarea {
     font-family: inherit;
     font-size: 1rem;
@@ -105,6 +144,7 @@ const channels = [
   }
 
   .form input:focus,
+  .form select:focus,
   .form textarea:focus {
     outline: none;
     border-color: var(--accent);
@@ -140,12 +180,18 @@ const channels = [
     text-decoration: none;
   }
 
+  .small {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+
   a.channel-value:hover {
     color: var(--accent);
   }
 
   @media (max-width: 760px) {
-    .contact-grid {
+    .contact-grid,
+    .row {
       grid-template-columns: 1fr;
     }
   }

@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import StageTrack from '../components/StageTrack.astro';
+import { programmes, updates, stages } from '../data/research';
+---
+
+<Layout
+  title="R&D progress"
+  description="Progress of the Aerospace Development Group research and development programmes."
+>
+  <PageIntro eyebrow="Research & development" title="Our R&D progress, in the open.">
+    Our research and development team works on programmes that push our own capabilities
+    forward. Here's where each one stands, and a log of what has happened recently.
+  </PageIntro>
+
+  <section>
+    <div class="wrap">
+      <div class="legend card">
+        <p class="legend-title">How we track progress</p>
+        <ol>
+          {stages.map((s, i) => (
+            <li><span class="num">{i + 1}</span>{s}</li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="programmes">
+        {programmes.map((p) => (
+          <article class="card programme">
+            <div class="programme-head">
+              <div>
+                <h2>{p.name}</h2>
+                <p class="area">{p.area}</p>
+              </div>
+              <span class="pill">{stages[p.stage]}</span>
+            </div>
+            <StageTrack stage={p.stage} />
+            <p class="muted">{p.summary}</p>
+            <p class="next"><strong>{p.stage === stages.length - 1 ? 'Outcome' : 'Next step'}:</strong> {p.next}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="log">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Progress log</p>
+          <h2>What's been happening.</h2>
+        </div>
+      </div>
+      <ol class="timeline">
+        {updates.map((u) => (
+          <li>
+            <span class="dot" aria-hidden="true"></span>
+            <p class="meta">{u.date} · {u.programme}</p>
+            <h3>{u.title}</h3>
+            <p class="muted">{u.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2>Interested in our research?</h2>
+          <p>We're open to R&amp;D partnerships, joint projects and putting our technology to work in your application.</p>
+        </div>
+        <a class="btn" href="/contact">Talk to the team</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legend {
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+
+  .legend-title {
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+
+  .legend ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .num {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .programmes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .programme {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .programme p {
+    margin: 0;
+  }
+
+  .programme-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 12px;
+  }
+
+  .programme-head h2 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .area {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .next {
+    font-size: 0.92rem;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: auto !important;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 28px;
+    border-left: 2px solid var(--border);
+    max-width: 760px;
+  }
+
+  .timeline li {
+    position: relative;
+    padding-bottom: 32px;
+  }
+
+  .timeline li:last-child {
+    padding-bottom: 0;
+  }
+
+  .dot {
+    position: absolute;
+    left: -36px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+  }
+
+  .meta {
+    margin: 0 0 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .timeline h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+  }
+
+  .timeline p.muted {
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .programmes {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
