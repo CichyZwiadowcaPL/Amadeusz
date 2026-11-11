@@ -31,10 +31,10 @@ export const programmes: Programme[] = [
   {
     name: 'Thermal Resistance Composite',
     area: 'Materials',
-    stage: 2,
+    stage: 0,
     summary:
       'In-house composite material for high-temperature structures such as airframe skins and nozzle components.',
-    next: 'Producing test coupons for thermal and mechanical characterisation.',
+    next: 'Researching material options and defining target thermal and mechanical properties.',
   },
   {
     name: 'Liquid Engine',
@@ -58,8 +58,8 @@ const log: Update[] = [
   {
     date: '2026-10',
     programme: 'Thermal Resistance Composite',
-    title: 'First sample layups produced',
-    body: 'Initial layups completed; coupons are being prepared for thermal exposure tests.',
+    title: 'Material research started',
+    body: 'Started researching material options and defining target properties for a high-temperature composite.',
   },
   {
     date: '2026-08',
