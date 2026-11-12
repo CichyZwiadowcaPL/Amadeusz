@@ -12,7 +12,7 @@ export const partners: Partner[] = [
   {
     name: 'Milestones Unlimited',
     logo: '/partners/milestones-unlimited.png',
-    contact: 'Marc Grotthedde',
+    contact: 'Marc Groothedde',
     contribution:
       'An experienced manager with twenty years in the industrial sector, skilled in project, development and operations management. Helps us navigate a tough market and analyses and advises on the company’s operations.',
   },
