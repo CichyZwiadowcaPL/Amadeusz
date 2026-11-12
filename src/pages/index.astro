@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import StageTrack from '../components/StageTrack.astro';
 import Backdrop from '../components/Backdrop.astro';
+import PartnerLogo from '../components/PartnerLogo.astro';
+import { partners } from '../data/partners';
 import { programmes, updates, stages } from '../data/research';
 import { services } from '../data/services';
 import { site } from '../data/site';
@@ -113,6 +115,25 @@ const latest = updates.slice(0, 3);
     </div>
   </section>
 
+  <section class="partners">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Partners</p>
+          <h2>Built together with our partners.</h2>
+        </div>
+        <a class="link" href="/about#partners">How they help us →</a>
+      </div>
+      <ul class="logo-strip">
+        {partners.map((partner) => (
+          <li title={partner.name}>
+            <PartnerLogo partner={partner} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="cta-band">
@@ -182,6 +203,42 @@ const latest = updates.slice(0, 3);
   @media (max-width: 640px) {
     .hero-inner {
       padding-block: 72px 120px;
+    }
+  }
+
+  .logo-strip {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .logo-strip li {
+    display: grid;
+    place-items: center;
+    min-height: 96px;
+    padding: 18px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  @media (max-width: 960px) {
+    .logo-strip {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .logo-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .logo-strip li {
+      min-height: 80px;
+      padding: 14px;
     }
   }
 
