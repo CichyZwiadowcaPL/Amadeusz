@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import StageTrack from '../components/StageTrack.astro';
+import Backdrop from '../components/Backdrop.astro';
 import { programmes, updates, stages } from '../data/research';
 import { services } from '../data/services';
 import { site } from '../data/site';
@@ -20,6 +21,7 @@ const latest = updates.slice(0, 3);
 
 <Layout title="Engineering bureau">
   <section class="hero">
+    <Backdrop variant="dark" />
     <div class="wrap hero-inner">
       <p class="eyebrow">Engineering bureau · Research &amp; development</p>
       <h1>We research, design and build engineering solutions.</h1>
@@ -125,8 +127,21 @@ const latest = updates.slice(0, 3);
 </Layout>
 
 <style>
+  .hero {
+    position: relative;
+    padding: 0;
+    color: #ffffff;
+    isolation: isolate;
+  }
+
   .hero-inner {
-    padding-block: 96px 48px;
+    position: relative;
+    z-index: 1;
+    padding-block: 120px 170px;
+  }
+
+  .hero .eyebrow {
+    color: #8fb3e0;
   }
 
   .hero-inner > * {
@@ -139,7 +154,7 @@ const latest = updates.slice(0, 3);
   }
 
   .hero-lede {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 1.1rem;
     margin: 0 0 32px;
   }
@@ -150,8 +165,24 @@ const latest = updates.slice(0, 3);
     flex-wrap: wrap;
   }
 
-  .stats {
-    padding-top: 0;
+  .hero .btn-primary {
+    background: #ffffff;
+    color: var(--accent-strong);
+  }
+
+  .hero .btn-ghost {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .hero .btn-ghost:hover {
+    border-color: #ffffff;
+  }
+
+  @media (max-width: 640px) {
+    .hero-inner {
+      padding-block: 72px 120px;
+    }
   }
 
   .stats-grid {

@@ -1,4 +1,5 @@
 :root {
+  --sky: #5a8cc9;
   --bg: #ffffff;
   --bg-elevated: #f4f6fb;
   --border: #dbe1ee;
@@ -148,6 +149,9 @@ section {
 }
 
 .cta-band {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   color: var(--on-accent);
   border-radius: 20px;
@@ -157,6 +161,20 @@ section {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+}
+
+.cta-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-radial-gradient(
+    ellipse at 100% 120%,
+    transparent 0 46px,
+    rgba(255, 255, 255, 0.1) 46px 47px
+  );
+  mask-image: linear-gradient(90deg, transparent 20%, #000 80%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 20%, #000 80%);
 }
 
 .cta-band h2 {
