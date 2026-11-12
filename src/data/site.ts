@@ -4,6 +4,6 @@ export const site = {
   short: 'ADG',
   tagline: 'Engineering bureau',
   email: 'info@adg-aerospace.com',
-  location: 'The Netherlands',
+  location: 'The Netherlands, Delft 2628 ZJ',
   founded: 2021,
 };
