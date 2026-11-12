@@ -64,7 +64,7 @@ const latest = updates.slice(0, 3);
         {programmes.map((p) => (
           <article class="card programme">
             <div class="programme-head">
-              <h3>{p.name}</h3>
+              <h3>{p.page ? <a href={p.page}>{p.name} →</a> : p.name}</h3>
               <span class="pill">{p.area}</span>
             </div>
             <StageTrack stage={p.stage} />
@@ -292,6 +292,15 @@ const latest = updates.slice(0, 3);
 
   .programme-head h3 {
     margin: 0;
+  }
+
+  .programme-head h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .programme-head h3 a:hover {
+    color: var(--accent);
   }
 
   .update-meta {

@@ -9,6 +9,7 @@ export interface Programme {
   stage: number;
   summary: string;
   next: string;
+  page?: string; // optional detail page, e.g. '/research/nuada-i'
 }
 
 export const programmes: Programme[] = [
@@ -16,6 +17,7 @@ export const programmes: Programme[] = [
     name: 'Nuada I',
     area: 'Rocketry',
     stage: 4,
+    page: '/research/nuada-i',
     summary:
       'Our first mission, started in 2021: a research-focused rocket that validated our own airframe, recovery and avionics systems. Nominated for the Dutch Aerospace Fund Prize in 2022.',
     next: 'Laid the technical foundation for the company and for Nuada II.',

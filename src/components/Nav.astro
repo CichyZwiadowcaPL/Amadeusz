@@ -26,7 +26,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           <li>
             <a
               href={link.href}
-              aria-current={currentPath === link.href ? 'page' : undefined}
+              aria-current={
+                currentPath === link.href || (link.href !== '/' && currentPath.startsWith(`${link.href}/`))
+                  ? 'page'
+                  : undefined
+              }
             >
               {link.label}
             </a>

@@ -38,6 +38,7 @@ import { programmes, updates, stages } from '../data/research';
             <StageTrack stage={p.stage} />
             <p class="muted">{p.summary}</p>
             <p class="next"><strong>{p.stage === stages.length - 1 ? 'Outcome' : 'Next step'}:</strong> {p.next}</p>
+            {p.page && <a class="more" href={p.page}>Read the full {p.name} story →</a>}
           </article>
         ))}
       </div>
@@ -151,6 +152,16 @@ import { programmes, updates, stages } from '../data/research';
     border-top: 1px solid var(--border);
     padding-top: 14px;
     margin-top: auto !important;
+  }
+
+  .more {
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .more:hover {
+    text-decoration: underline;
   }
 
   .timeline {

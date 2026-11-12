@@ -1,0 +1,312 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import StageTrack from '../../components/StageTrack.astro';
+import PartnerLogo from '../../components/PartnerLogo.astro';
+import { programmes, updates } from '../../data/research';
+import { partners } from '../../data/partners';
+
+const nuada = programmes.find((p) => p.name === 'Nuada I')!;
+const log = updates.filter((u) => u.programme === 'Nuada I').reverse();
+
+const facts = [
+  { value: '~5 years', label: 'Of research & development' },
+  { value: '20+', label: 'People involved' },
+  { value: String(partners.length), label: 'Partners' },
+  { value: '2022', label: 'Dutch Aerospace Fund Prize nomination' },
+];
+
+const work = [
+  {
+    title: 'Airframe & structures',
+    body: 'Designing and building the rocket body, combining composite work and metal parts made in partner workshops.',
+  },
+  {
+    title: 'Composites',
+    body: 'Carbon-fibre and glass-fibre composite work, developed with the composite laboratory of ROC Amsterdam.',
+  },
+  {
+    title: 'Nose cone',
+    body: 'A 3D-printed nose cone, produced together with Dextro-Tech.',
+  },
+  {
+    title: 'Recovery',
+    body: 'A recovery system to bring the rocket back safely, validated as part of the mission.',
+  },
+  {
+    title: 'Avionics',
+    body: 'Our own on-board electronics, validated in the project and the starting point for the Nuada II avionics.',
+  },
+  {
+    title: 'Project & organisation',
+    body: 'Running a multi-year project with a large team and partners, with management and communication advice from our partners.',
+  },
+];
+---
+
+<Layout
+  title="Nuada I"
+  description="Nuada I: Aerospace Development Group's first research rocket — five years of work, 20+ people and six partners."
+>
+  <PageIntro eyebrow="R&D programme · Rocketry · Complete" title="Nuada I">
+    Our first mission and the foundation of Aerospace Development Group. Nuada I was a
+    research-focused rocket, developed over around five years by more than 20 people together
+    with our partners — and the project where we built most of the knowledge we work with today.
+  </PageIntro>
+
+  <section class="facts-section">
+    <div class="wrap">
+      <div class="facts">
+        {facts.map((f) => (
+          <div class="card fact">
+            <div class="fact-value">{f.value}</div>
+            <div class="fact-label">{f.label}</div>
+          </div>
+        ))}
+      </div>
+      <div class="card stage-card">
+        <p class="stage-title">Programme status</p>
+        <StageTrack stage={nuada.stage} />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap story">
+      <div>
+        <p class="eyebrow">The mission</p>
+        <h2>Building knowledge from the ground up.</h2>
+      </div>
+      <div class="story-text">
+        <p>
+          Nuada I started in 2021 with a simple goal: design and build our own research rocket,
+          and learn as much as possible along the way. Instead of buying off-the-shelf
+          solutions, the team developed its own airframe, recovery and avionics systems.
+        </p>
+        <p>
+          Over around five years, more than 20 people contributed to the project. With the help
+          of partners from education and industry, the team gained access to workshops,
+          laboratories and expertise that a young team could never have built alone.
+        </p>
+        <p>
+          The project was finished with results: our airframe, recovery and avionics systems were
+          validated, and in 2022 Nuada I was nominated for the Dutch Aerospace Fund Prize. The
+          knowledge from Nuada I is now the foundation for Nuada II and for the engineering work we
+          do for clients.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">What we developed</p>
+          <h2>The work behind the rocket.</h2>
+        </div>
+      </div>
+      <div class="grid work-grid">
+        {work.map((w) => (
+          <div class="card">
+            <h3>{w.title}</h3>
+            <p class="muted">{w.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Partners</p>
+          <h2>Made possible by our partners.</h2>
+        </div>
+        <a class="link" href="/about#partners">More about our partners →</a>
+      </div>
+      <div class="grid partner-grid">
+        {partners.map((partner) => (
+          <div class="card partner">
+            <div class="partner-logo-box"><PartnerLogo partner={partner} /></div>
+            <p class="partner-name">{partner.name}</p>
+            <p class="muted small">{partner.contribution}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {log.length > 0 && (
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Timeline</p>
+            <h2>Milestones.</h2>
+          </div>
+        </div>
+        <ol class="timeline">
+          {log.map((u) => (
+            <li>
+              <span class="dot" aria-hidden="true"></span>
+              <p class="meta">{u.date}</p>
+              <h3>{u.title}</h3>
+              <p class="muted">{u.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2>What came next.</h2>
+          <p>Nuada I laid the foundation for Nuada II and for our engineering services.</p>
+        </div>
+        <a class="btn" href="/research">See all R&amp;D programmes</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .facts-section {
+    padding-bottom: 0;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .fact {
+    text-align: center;
+    padding: 24px 16px;
+  }
+
+  .fact-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .fact-label {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .stage-card {
+    margin-top: 20px;
+    padding: 20px 24px;
+  }
+
+  .stage-title {
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px 64px;
+  }
+
+  .story h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 8px 0 0;
+  }
+
+  .story-text p {
+    margin: 0 0 16px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+  }
+
+  .card p {
+    margin: 0;
+  }
+
+  .work-grid,
+  .partner-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .partner-logo-box {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    margin-bottom: 14px;
+  }
+
+  .partner-name {
+    font-weight: 600;
+    margin-bottom: 4px !important;
+  }
+
+  .small {
+    font-size: 0.92rem;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 28px;
+    border-left: 2px solid var(--border);
+    max-width: 760px;
+  }
+
+  .timeline li {
+    position: relative;
+    padding-bottom: 28px;
+  }
+
+  .timeline li:last-child {
+    padding-bottom: 0;
+  }
+
+  .dot {
+    position: absolute;
+    left: -36px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+  }
+
+  .meta {
+    margin: 0 0 4px !important;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .timeline h3 {
+    margin: 0 0 6px;
+  }
+
+  @media (max-width: 900px) {
+    .facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .story,
+    .work-grid,
+    .partner-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
