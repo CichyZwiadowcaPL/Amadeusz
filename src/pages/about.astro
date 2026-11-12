@@ -2,8 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import { history } from '../data/history';
-import { partners } from '../data/partners';
-import PartnerLogo from '../components/PartnerLogo.astro';
 
 const team = [
   { name: 'Amadeusz Gajewski', role: 'Founder & Lead Engineer' },
@@ -83,30 +81,6 @@ const values = [
     </div>
   </section>
 
-  <section class="partners" id="partners">
-    <div class="wrap">
-      <p class="eyebrow">Partners</p>
-      <h2>The partners behind Nuada I.</h2>
-      <p class="partners-lede">
-        Our partnerships were established during the Nuada I project. Each partner supported our
-        research in its own way — from workshops and materials to management and communication
-        advice.
-      </p>
-      <div class="grid partner-grid">
-        {partners.map((partner) => (
-          <article class="card partner-card">
-            <div class="partner-logo-box">
-              <PartnerLogo partner={partner} />
-            </div>
-            <h3>{partner.name}</h3>
-            {partner.contact && <p class="partner-contact">{partner.contact}</p>}
-            <p class="partner-text">{partner.contribution}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="team">
     <div class="wrap">
       <p class="eyebrow">The team</p>
@@ -151,7 +125,6 @@ const values = [
   }
 
   .history h2,
-  .partners h2,
   .team h2 {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin: 8px 0 32px;
@@ -238,49 +211,6 @@ const values = [
     font-weight: 600;
   }
 
-  .partners-lede {
-    max-width: 720px;
-    margin: -16px 0 32px;
-    color: var(--text-muted);
-  }
-
-  .partner-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .partner-card {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .partner-logo-box {
-    display: flex;
-    align-items: center;
-    height: 64px;
-    margin-bottom: 12px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .partner-card h3 {
-    margin: 0;
-    font-size: 1.05rem;
-  }
-
-  .partner-contact {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  .partner-text {
-    margin: 4px 0 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-  }
-
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -342,8 +272,7 @@ const values = [
   @media (max-width: 860px) {
     .values-grid,
     .team-grid,
-    .ecosystem-card,
-    .partner-grid {
+    .ecosystem-card {
       grid-template-columns: 1fr;
     }
 

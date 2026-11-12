@@ -198,3 +198,8 @@ section {
     padding: 32px 24px;
   }
 }
+
+/* Keep anchor targets (e.g. #partners) clear of the sticky header */
+[id] {
+  scroll-margin-top: 110px;
+}

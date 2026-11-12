@@ -117,15 +117,18 @@ const work = [
     </div>
   </section>
 
-  <section>
+  <section id="partners">
     <div class="wrap">
       <div class="section-head">
         <div>
           <p class="eyebrow">Partners</p>
           <h2>Made possible by our partners.</h2>
         </div>
-        <a class="link" href="/about#partners">More about our partners →</a>
       </div>
+      <p class="partners-lede">
+        The partnerships behind Nuada I were established during the project. Each partner
+        supported our research in its own way.
+      </p>
       <div class="grid partner-grid">
         {partners.map((partner) => (
           <div class="card partner">
@@ -241,6 +244,12 @@ const work = [
   .work-grid,
   .partner-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .partners-lede {
+    max-width: 720px;
+    margin: -12px 0 28px;
+    color: var(--text-muted);
   }
 
   .partner-logo-box {
