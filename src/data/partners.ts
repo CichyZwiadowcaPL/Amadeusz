@@ -23,6 +23,7 @@ export const partners: Partner[] = [
   },
   {
     name: 'ROC Amsterdam',
+    logo: '/partners/roc-amsterdam.png',
     contribution:
       'Composites expertise and access to their composite laboratory, working with carbon fibre and glass fibre.',
   },
