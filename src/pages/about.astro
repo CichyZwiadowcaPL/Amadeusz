@@ -5,10 +5,11 @@ import { history } from '../data/history';
 
 const team = [
   { name: 'Amadeusz Gajewski', role: 'Founder & Lead Engineer' },
-  { name: 'Team member', role: 'Propulsion' },
-  { name: 'Team member', role: 'Avionics & Software' },
   { name: 'Yuri Meijer', role: 'Structures Engineer' },
 ];
+
+// Open positions shown as "Looking for…" cards after the team.
+const openRoles = ['Propulsion Engineer', 'Avionics & Software Engineer'];
 
 const values = [
   {
@@ -93,6 +94,15 @@ const values = [
               <p class="team-role">{member.role}</p>
             </div>
           </div>
+        ))}
+        {openRoles.map((role) => (
+          <a class="card team-card open-role" href="/contact?topic=Careers">
+            <div class="avatar avatar-open" aria-hidden="true">+</div>
+            <div>
+              <p class="team-name">Looking for: {role}</p>
+              <p class="team-role">Interested in joining? Get in touch →</p>
+            </div>
+          </a>
         ))}
       </div>
     </div>
@@ -223,6 +233,29 @@ const values = [
     font-weight: 700;
     background: linear-gradient(135deg, var(--accent), var(--accent-strong));
     color: var(--on-accent);
+  }
+
+  .open-role {
+    border-style: dashed;
+    background: transparent;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .open-role:hover {
+    border-color: var(--accent);
+  }
+
+  .avatar-open {
+    background: none;
+    border: 2px dashed var(--border);
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .open-role .team-role {
+    color: var(--accent);
   }
 
   .team-name {
