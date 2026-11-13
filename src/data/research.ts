@@ -43,8 +43,8 @@ export const programmes: Programme[] = [
     area: 'Propulsion',
     stage: 0,
     summary:
-      'Liquid-propellant rocket engine designed from first principles as the basis for future vehicles.',
-    next: 'Propellant trade study and preliminary performance sizing.',
+      'Concept for a liquid-propellant rocket engine, intended as the basis for future vehicles.',
+    next: 'Concept phase: defining the goals and requirements. Research has not started yet.',
   },
 ];
 
@@ -68,12 +68,6 @@ const log: Update[] = [
     programme: 'Nuada II',
     title: 'Concept phase started',
     body: 'Collecting lessons learned from Nuada I and exploring concepts for the dual-deploy recovery system.',
-  },
-  {
-    date: '2026-06',
-    programme: 'Liquid Engine',
-    title: 'Programme opened',
-    body: 'Kick-off of propulsion research, starting with a propellant combination trade study.',
   },
   {
     date: '2026-07',
