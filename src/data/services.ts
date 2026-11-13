@@ -1,4 +1,4 @@
-// Consultancy services and products shown on /services and the home page.
+// Consultancy services shown on /services and the home page.
 
 export interface Service {
   title: string;
@@ -36,30 +36,6 @@ export const services: Service[] = [
     title: 'R&D partnership',
     body: 'Joint development for companies, universities and research groups.',
     items: ['Feasibility studies', 'Joint research projects', 'Grant-funded programmes', 'Technology transfer'],
-  },
-];
-
-export interface Product {
-  name: string;
-  body: string;
-  availability: string;
-}
-
-export const products: Product[] = [
-  {
-    name: 'Thermal resistance composite',
-    body: 'Our in-house high-temperature composite, available for evaluation samples and joint application development.',
-    availability: 'Samples on request',
-  },
-  {
-    name: 'Flight & data-logging electronics',
-    body: 'Avionics hardware proven on our own vehicles, adaptable for logging, telemetry and control in other applications.',
-    availability: 'Custom configurations',
-  },
-  {
-    name: 'Custom engineered components',
-    body: 'Parts and assemblies designed and built to your specification, from one-off prototypes to small series.',
-    availability: 'Made to order',
   },
 ];
 

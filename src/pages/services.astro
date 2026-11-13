@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageIntro from '../components/PageIntro.astro';
-import { services, products, process } from '../data/services';
+import { services, process } from '../data/services';
 
 const audiences = [
   { title: 'Companies', body: 'Extra engineering capacity or specialist skills for a product or project.' },
@@ -11,10 +11,10 @@ const audiences = [
 ---
 
 <Layout
-  title="Services & products"
-  description="Engineering consultancy services and products offered by Aerospace Development Group."
+  title="Services"
+  description="Engineering consultancy and development services offered by Aerospace Development Group."
 >
-  <PageIntro eyebrow="Services & products" title="What ADG can do for you.">
+  <PageIntro eyebrow="Services" title="What ADG can do for you.">
     The skills and tools we use in our own R&amp;D are available to clients. Whether you need
     a design reviewed, a prototype built, a test campaign run or a long-term engineering
     partner, we can help.
@@ -36,28 +36,6 @@ const audiences = [
             <ul>
               {s.items.map((item) => <li>{item}</li>)}
             </ul>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Products</p>
-          <h2>Technology from our R&amp;D.</h2>
-        </div>
-        <a class="link" href="/research">See how they were developed →</a>
-      </div>
-      <div class="grid three">
-        {products.map((p) => (
-          <article class="card product">
-            <span class="pill">{p.availability}</span>
-            <h3>{p.name}</h3>
-            <p class="muted">{p.body}</p>
-            <a class="enquire" href={`/contact?topic=${encodeURIComponent('Products')}`}>Enquire →</a>
           </article>
         ))}
       </div>
@@ -139,28 +117,6 @@ const audiences = [
 
   .service li {
     margin-bottom: 4px;
-  }
-
-  .product {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .product h3 {
-    margin: 4px 0 0;
-  }
-
-  .enquire {
-    margin-top: auto;
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  .enquire:hover {
-    text-decoration: underline;
   }
 
   .steps {

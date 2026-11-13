@@ -36,7 +36,7 @@ export const programmes: Programme[] = [
     stage: 0,
     summary:
       'In-house composite material for high-temperature structures such as airframe skins and nozzle components.',
-    next: 'Researching material options and defining target thermal and mechanical properties.',
+    next: 'Concept phase: defining the goals and requirements.',
   },
   {
     name: 'Liquid Engine',
@@ -58,16 +58,16 @@ export interface Update {
 
 const log: Update[] = [
   {
-    date: '2026-10',
+    date: '2026',
     programme: 'Thermal Resistance Composite',
-    title: 'Material research started',
-    body: 'Started researching material options and defining target properties for a high-temperature composite.',
+    title: 'Concept phase started',
+    body: 'The concept for a high-temperature composite is being defined. More information will follow as the work progresses.',
   },
   {
-    date: '2026-08',
+    date: '2026',
     programme: 'Nuada II',
     title: 'Concept phase started',
-    body: 'Collecting lessons learned from Nuada I and exploring concepts for the dual-deploy recovery system.',
+    body: 'Nuada II is in the concept phase, building on the technology of Nuada I. More information will follow as the work progresses.',
   },
   {
     date: '2026-07',

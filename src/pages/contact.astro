@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageIntro from '../components/PageIntro.astro';
 import { site } from '../data/site';
 
-const topics = ['Engineering consultancy', 'Products', 'R&D partnership', 'Careers', 'Other'];
+const topics = ['Engineering consultancy', 'Product development', 'R&D partnership', 'Careers', 'Other'];
 
 const channels = [
   { label: 'Email', value: site.email, href: `mailto:${site.email}` },
@@ -14,7 +14,7 @@ const channels = [
 
 <Layout title="Contact" description="Get in touch with Aerospace Development Group.">
   <PageIntro eyebrow="Contact" title="Let's talk.">
-    Need engineering support, interested in our products or want to collaborate on research?
+    Need engineering support, help developing a product or want to collaborate on research?
     Send us a message. The more you tell us about your project, the better we can help.
   </PageIntro>
 
@@ -156,7 +156,7 @@ const channels = [
     if (event.target === dialog) dialog.close();
   });
 
-  // Pre-select the topic when linked as /contact?topic=Products
+  // Pre-select the topic when linked as /contact?topic=Careers
   const topic = new URLSearchParams(window.location.search).get('topic');
   const select = document.getElementById('topic') as HTMLSelectElement | null;
   if (topic && select && [...select.options].some((o) => o.value === topic)) {
