@@ -10,37 +10,51 @@ const nuada = programmes.find((p) => p.name === 'Nuada I')!;
 const log = updates.filter((u) => u.programme === 'Nuada I').reverse();
 
 const facts = [
-  { value: '~5 years', label: 'Of research & development' },
+  { value: '2021 – 2026', label: 'Programme duration' },
   { value: '20+', label: 'People involved' },
   { value: String(partners.length), label: 'Partners' },
   { value: '2022', label: 'Dutch Aerospace Fund Award nomination' },
 ];
 
-const work = [
+const systems = [
   {
-    title: 'Airframe & structures',
-    body: 'Designing and building the rocket body, combining composite work and metal parts made in partner workshops.',
+    title: 'Electronics',
+    body: 'The “heart” of the rocket: our own flight computer (PCB) that reads an altimeter, accelerometer, speed sensor and GPS, and triggers the right actions in each phase of the flight.',
   },
   {
-    title: 'Composites',
-    body: 'Carbon-fibre and glass-fibre composite work, developed with the composite laboratory of ROC Amsterdam.',
+    title: 'Construction & aerodynamics',
+    body: 'A composite structure that carries all forces from the motor and houses the internal systems. We tested it destructively: tensile tests at the ROC Amsterdam composite lab showed the load-bearing connections can take many times the motor’s thrust.',
+  },
+  {
+    title: 'Recovery',
+    body: 'A dual-deploy system: a drogue parachute opens high up to slow the rocket down, and the main parachute opens close to the ground for a gentle landing.',
+  },
+  {
+    title: 'Solid booster & fuel',
+    body: 'A solid-fuel motor, developed in cooperation with fellow Rocket Group the Netherlands teams. Our own solid-booster work started here and continues in the next projects.',
   },
   {
     title: 'Nose cone',
     body: 'A 3D-printed nose cone, produced together with Dextro-Tech.',
   },
   {
-    title: 'Recovery',
-    body: 'A recovery system to bring the rocket back safely, validated as part of the mission.',
+    title: 'Project & safety',
+    body: 'Run according to the NERO safety statute, EU Directive 2014/28/EU on civil explosives and the European Rocketry Challenge (EuRoC) design and test rules.',
   },
-  {
-    title: 'Avionics',
-    body: 'Our own on-board electronics, validated in the project and the starting point for the Nuada II avionics.',
-  },
-  {
-    title: 'Project & organisation',
-    body: 'Running a multi-year project with a large team and partners, with management and communication advice from our partners.',
-  },
+];
+
+// Values from the Nuada I flight simulations (OpenRocket), June 2024.
+const flight = [
+  { value: '≈ 2,000 m', label: 'Simulated apogee' },
+  { value: 'Mach 0.77', label: 'Max. velocity (262 m/s)' },
+  { value: '157 m/s²', label: 'Max. acceleration' },
+  { value: '1.61 cal', label: 'Stability margin' },
+];
+
+const recovery = [
+  { step: '1,800 m', text: 'Drogue parachute opens — descent slowed to about 40 m/s' },
+  { step: '450 m', text: 'Main parachute opens — descent slowed to about 6 m/s' },
+  { step: 'Ground', text: 'Safe landing of the complete rocket' },
 ];
 ---
 
@@ -49,9 +63,10 @@ const work = [
   description="Nuada I: Aerospace Development Group's first research rocket — five years of work, 20+ people and six partners."
 >
   <PageIntro eyebrow="R&D programme · Rocketry · Complete" title="Nuada I">
-    Our first mission and the foundation of Aerospace Development Group. Nuada I was a
-    research-focused rocket, developed over around five years by more than 20 people together
-    with our partners — and the project where we built most of the knowledge we work with today.
+    Our first rocket programme and the foundation of ADG Aerospace. Named after the Celtic god
+    of air, Nuada I was a solid-fuel research rocket, developed from 2021 to 2026 by more than 20
+    people together with our partners. Its technology now lives on in Nuada II and our other
+    projects.
   </PageIntro>
 
   <section class="facts-section">
@@ -79,20 +94,21 @@ const work = [
       </div>
       <div class="story-text">
         <p>
-          Nuada I started in 2021 with a simple goal: design and build our own research rocket,
-          and learn as much as possible along the way. Instead of buying off-the-shelf
-          solutions, the team developed its own airframe, recovery and avionics systems.
+          The Nuada programme started in early 2021 at Deltion College in Zwolle, with a bold first
+          idea: Nuada-0, a rocket with a liquid engine aiming for 10 km. The concept was nominated
+          for an award — and taught us to set a realistic first goal. So we switched to Nuada I: a
+          solid-fuel research rocket that a young team could really design, build and test.
         </p>
         <p>
-          Over around five years, more than 20 people contributed to the project. With the help
-          of partners from education and industry, the team gained access to workshops,
-          laboratories and expertise that a young team could never have built alone.
+          Nuada I was split into four systems — electronics, construction &amp; aerodynamics,
+          recovery, and the solid booster &amp; fuel. Every system was designed, simulated and
+          tested before being approved. Along the way we built not just a rocket, but also the
+          organisation behind it: ARIE Aerospace, which became ADG Aerospace.
         </p>
         <p>
-          The project was finished with results: our airframe, recovery and avionics systems were
-          validated, and in 2022 Nuada I was nominated for the Dutch Aerospace Fund Award. The
-          knowledge from Nuada I is now the foundation for Nuada II and for the engineering work we
-          do for clients.
+          Over five years more than 20 people and our partners contributed to the project. Nuada I
+          is now finished, and the technology and lessons learned are carried over to Nuada II and
+          our other projects.
         </p>
       </div>
     </div>
@@ -103,16 +119,44 @@ const work = [
       <div class="section-head">
         <div>
           <p class="eyebrow">What we developed</p>
-          <h2>The work behind the rocket.</h2>
+          <h2>Four systems, one rocket.</h2>
         </div>
       </div>
       <div class="grid work-grid">
-        {work.map((w) => (
+        {systems.map((w) => (
           <div class="card">
             <h3>{w.title}</h3>
             <p class="muted">{w.body}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="flight-panel">
+        <div class="flight-head">
+          <p class="eyebrow">Flight simulation</p>
+          <h2>How Nuada I was designed to fly.</h2>
+          <p class="flight-note">Results of our Nuada I flight simulations (June 2024).</p>
+        </div>
+        <div class="flight-stats">
+          {flight.map((f) => (
+            <div class="flight-stat">
+              <div class="flight-value">{f.value}</div>
+              <div class="flight-label">{f.label}</div>
+            </div>
+          ))}
+        </div>
+        <ol class="recovery">
+          {recovery.map((r) => (
+            <li>
+              <span class="recovery-step">{r.step}</span>
+              <span>{r.text}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   </section>
@@ -215,6 +259,76 @@ const work = [
     font-weight: 600;
   }
 
+  .flight-panel {
+    border-radius: 20px;
+    padding: 40px;
+    color: #ffffff;
+    background:
+      radial-gradient(ellipse at 85% 0%, rgba(90, 140, 201, 0.3), transparent 60%),
+      linear-gradient(160deg, #0a1733, #060c1a);
+  }
+
+  .flight-head h2 {
+    margin: 8px 0 6px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .flight-head .eyebrow {
+    color: #8fb3e0;
+  }
+
+  .flight-note {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.9rem;
+  }
+
+  .flight-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .flight-stat {
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .flight-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .flight-label {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .recovery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .recovery li {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .recovery-step {
+    flex: 0 0 90px;
+    font-weight: 700;
+    color: #8fb3e0;
+  }
+
   .story {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
@@ -308,8 +422,22 @@ const work = [
   }
 
   @media (max-width: 900px) {
-    .facts {
+    .facts,
+    .flight-stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .flight-panel {
+      padding: 28px 22px;
+    }
+
+    .flight-value {
+      font-size: 1.2rem;
+      white-space: nowrap;
+    }
+
+    .recovery-step {
+      flex-basis: 70px;
     }
 
     .story,

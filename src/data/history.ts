@@ -9,7 +9,7 @@ export const history = [
   {
     year: '2021 – 2022',
     title: 'The Nuada programme begins',
-    body: 'Start of Nuada I, a solid-fuel rocket designed to reach an altitude of 3 km. The first partnerships with companies and schools are established.',
+    body: 'Start of Nuada I, our first solid-fuel research rocket. The first partnerships with companies and schools are established.',
   },
   {
     year: '2022',

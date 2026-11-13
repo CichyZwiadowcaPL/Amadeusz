@@ -19,8 +19,8 @@ export const programmes: Programme[] = [
     stage: 4,
     page: '/research/nuada-i',
     summary:
-      'Our first mission, started in 2021: a research-focused rocket that validated our own airframe, recovery and avionics systems. Nominated for the Dutch Aerospace Fund Award in 2022.',
-    next: 'Laid the technical foundation for the company and for Nuada II.',
+      'Our first rocket programme (2021 – 2026): a solid-fuel research rocket with our own flight electronics, composite structure and dual-deploy recovery system. Nominated for the Dutch Aerospace Fund Award in 2022.',
+    next: 'The technology developed in Nuada I is carried over to Nuada II and our other projects.',
   },
   {
     name: 'Nuada II',
@@ -82,6 +82,18 @@ const log: Update[] = [
     body: 'Aerospace Development Group is now officially registered with the Dutch Chamber of Commerce (KvK).',
   },
   {
+    date: '2026',
+    programme: 'Nuada I',
+    title: 'Nuada I completed',
+    body: 'The Nuada I project is finished. Its technology and lessons learned are carried over to Nuada II and our other projects.',
+  },
+  {
+    date: '2024-06',
+    programme: 'Nuada I',
+    title: 'Construction phase and structural testing',
+    body: 'Nuada I reached the construction phase. Destructive tensile tests at ROC Amsterdam confirmed that the structure has a large safety margin.',
+  },
+  {
     date: '2022',
     programme: 'Nuada I',
     title: 'Nominated for the Dutch Aerospace Fund Award',
@@ -90,8 +102,8 @@ const log: Update[] = [
   {
     date: '2021',
     programme: 'Nuada I',
-    title: 'Nuada I mission started',
-    body: 'Work began on our first research-focused rocket and our own rocketry systems.',
+    title: 'The Nuada programme started',
+    body: 'Work began on our first rocket. The first concept (Nuada-0) aimed for a liquid engine; the team chose the achievable, solid-fuel Nuada I as its first mission.',
   },
 ];
 
