@@ -10,10 +10,10 @@ const nuada = programmes.find((p) => p.name === 'Nuada I')!;
 const log = updates.filter((u) => u.programme === 'Nuada I').reverse();
 
 const facts = [
+  { value: '2 km', label: 'Target altitude' },
   { value: '2021 – 2026', label: 'Programme duration' },
   { value: '20+', label: 'People involved' },
   { value: String(partners.length), label: 'Partners' },
-  { value: '2022', label: 'Dutch Aerospace Fund Award nomination' },
 ];
 
 const systems = [
@@ -27,11 +27,11 @@ const systems = [
   },
   {
     title: 'Recovery',
-    body: 'A dual-deploy system: a drogue parachute opens high up to slow the rocket down, and the main parachute opens close to the ground for a gentle landing.',
+    body: 'A dual-deploy system: a drogue parachute opens high up to slow the rocket down, and the main parachute opens close to the ground for a gentle landing at around 6 m/s.',
   },
   {
     title: 'Solid booster & fuel',
-    body: 'A solid-fuel motor, developed in cooperation with fellow Rocket Group the Netherlands teams. Our own solid-booster work started here and continues in the next projects.',
+    body: 'Our own solid rocket motor, SB-N-01 — an L-class booster developed in-house for Nuada I. See the results below.',
   },
   {
     title: 'Nose cone',
@@ -43,9 +43,9 @@ const systems = [
   },
 ];
 
-// Values from the Nuada I flight simulations (OpenRocket), June 2024.
+// Nuada I flight & recovery simulations (OpenRocket), June 2024.
 const flight = [
-  { value: '≈ 2,000 m', label: 'Simulated apogee' },
+  { value: '≈ 2,000 m', label: 'Simulated apogee (2,036 m)' },
   { value: 'Mach 0.77', label: 'Max. velocity (262 m/s)' },
   { value: '157 m/s²', label: 'Max. acceleration' },
   { value: '1.61 cal', label: 'Stability margin' },
@@ -56,6 +56,37 @@ const recovery = [
   { step: '450 m', text: 'Main parachute opens — descent slowed to about 6 m/s' },
   { step: 'Ground', text: 'Safe landing of the complete rocket' },
 ];
+
+// SB-N-01 solid booster — final results of the OpenMotor simulation (Nov 2024).
+// Only end figures are published, no design or manufacturing details.
+const booster = [
+  { value: 'L-class', label: 'Motor class' },
+  { value: '≈ 3,600 Ns', label: 'Total impulse' },
+  { value: '≈ 3 kN', label: 'Peak thrust' },
+  { value: '≈ 2 s', label: 'Burn time' },
+  { value: '≈ 144 s', label: 'Specific impulse (Isp)' },
+  { value: '< 10 MPa', label: 'Chamber pressure — within design limit' },
+];
+
+// Simulated thrust curve (time in s, thrust in N), traced from the simulation graph.
+const curve = [
+  [0, 0], [0.03, 950], [0.25, 1220], [0.5, 1500], [0.75, 1760], [1.0, 2000],
+  [1.25, 2250], [1.5, 2480], [1.75, 2680], [1.87, 2780], [1.92, 0],
+];
+const W = 600, H = 260, PAD = { l: 52, r: 16, t: 16, b: 36 };
+const xMax = 2.0, yMax = 3000;
+const sx = (t: number) => PAD.l + (t / xMax) * (W - PAD.l - PAD.r);
+const sy = (n: number) => H - PAD.b - (n / yMax) * (H - PAD.t - PAD.b);
+const linePath = curve.map(([t, n], i) => `${i ? 'L' : 'M'}${sx(t).toFixed(1)},${sy(n).toFixed(1)}`).join(' ');
+const areaPath = `${linePath} L${sx(1.92).toFixed(1)},${sy(0).toFixed(1)} Z`;
+const yTicks = [0, 1000, 2000, 3000];
+const xTicks = [0, 0.5, 1, 1.5, 2];
+
+const photos = [
+  { src: '/nuada/cad-aft-section.jpg', alt: 'CAD model of the Nuada I aft section', caption: 'CAD model of the Nuada I aft section with fins and motor mount.' },
+  { src: '/nuada/motor-casing.jpg', alt: 'Nuada I motor casing parts', caption: 'Hardware in the workshop.' },
+  { src: '/nuada/machining.jpg', alt: 'Machining a Nuada I part on a milling machine', caption: 'Machining parts in the partner workshop.' },
+];
 ---
 
 <Layout
@@ -64,7 +95,7 @@ const recovery = [
 >
   <PageIntro eyebrow="R&D programme · Rocketry · Complete" title="Nuada I">
     Our first rocket programme and the foundation of ADG Aerospace. Named after the Celtic god
-    of air, Nuada I was a solid-fuel research rocket, developed from 2021 to 2026 by more than 20
+    of air, Nuada I was a solid-fuel research rocket designed to reach 2 km, developed from 2021 to 2026 by more than 20
     people together with our partners. Its technology now lives on in Nuada II and our other
     projects.
   </PageIntro>
@@ -137,9 +168,9 @@ const recovery = [
     <div class="wrap">
       <div class="flight-panel">
         <div class="flight-head">
-          <p class="eyebrow">Flight simulation</p>
+          <p class="eyebrow">Flight &amp; recovery simulation</p>
           <h2>How Nuada I was designed to fly.</h2>
-          <p class="flight-note">Results of our Nuada I flight simulations (June 2024).</p>
+          <p class="flight-note">Results of our Nuada I flight and parachute simulations (June 2024).</p>
         </div>
         <div class="flight-stats">
           {flight.map((f) => (
@@ -157,6 +188,69 @@ const recovery = [
             </li>
           ))}
         </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="flight-panel">
+        <div class="flight-head">
+          <p class="eyebrow">Solid booster SB-N-01</p>
+          <h2>Results of our own rocket motor.</h2>
+          <p class="flight-note">Final figures from the SB-N-01 simulation (November 2024).</p>
+        </div>
+        <div class="booster-grid">
+          <div class="flight-stats">
+            {booster.map((f) => (
+              <div class="flight-stat">
+                <div class="flight-value">{f.value}</div>
+                <div class="flight-label">{f.label}</div>
+              </div>
+            ))}
+          </div>
+          <figure class="chart">
+            <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Simulated thrust curve: thrust rises from about 1 kN to about 2.8 kN over roughly 1.9 seconds, then drops to zero at burnout.">
+              <defs>
+                <linearGradient id="thrust-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#5a8cc9" stop-opacity="0.45" />
+                  <stop offset="1" stop-color="#5a8cc9" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              {yTicks.map((n) => (
+                <g>
+                  <line x1={PAD.l} x2={W - PAD.r} y1={sy(n)} y2={sy(n)} class="grid-line" />
+                  <text x={PAD.l - 8} y={sy(n) + 4} text-anchor="end" class="tick">{n === 0 ? '0' : `${n / 1000} kN`}</text>
+                </g>
+              ))}
+              {xTicks.map((t) => (
+                <text x={sx(t)} y={H - PAD.b + 20} text-anchor="middle" class="tick">{t} s</text>
+              ))}
+              <path d={areaPath} fill="url(#thrust-fill)" />
+              <path d={linePath} class="thrust-line" />
+            </svg>
+            <figcaption>Simulated thrust over time</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Gallery</p>
+          <h2>From CAD to hardware.</h2>
+        </div>
+      </div>
+      <div class="gallery">
+        {photos.map((ph) => (
+          <figure class="photo">
+            <img src={ph.src} alt={ph.alt} loading="lazy" />
+            <figcaption>{ph.caption}</figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
@@ -308,6 +402,82 @@ const recovery = [
     color: rgba(255, 255, 255, 0.7);
   }
 
+  .booster-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 24px;
+    align-items: center;
+    margin-top: 28px;
+  }
+
+  .booster-grid .flight-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .chart {
+    margin: 0;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .grid-line {
+    stroke: rgba(255, 255, 255, 0.1);
+  }
+
+  .tick {
+    fill: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .thrust-line {
+    fill: none;
+    stroke: #8fb3e0;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+
+  .chart figcaption {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    text-align: center;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .photo {
+    margin: 0;
+  }
+
+  .photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+
+  .photo figcaption {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
   .recovery {
     list-style: none;
     margin: 0;
@@ -442,7 +612,9 @@ const recovery = [
 
     .story,
     .work-grid,
-    .partner-grid {
+    .partner-grid,
+    .booster-grid,
+    .gallery {
       grid-template-columns: 1fr;
     }
   }

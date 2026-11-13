@@ -19,7 +19,7 @@ export const programmes: Programme[] = [
     stage: 4,
     page: '/research/nuada-i',
     summary:
-      'Our first rocket programme (2021 – 2026): a solid-fuel research rocket with our own flight electronics, composite structure and dual-deploy recovery system. Nominated for the Dutch Aerospace Fund Award in 2022.',
+      'Our first rocket programme (2021 – 2026): a solid-fuel research rocket designed to reach 2 km, with our own solid booster, flight electronics, composite structure and dual-deploy recovery. Nominated for the Dutch Aerospace Fund Award in 2022.',
     next: 'The technology developed in Nuada I is carried over to Nuada II and our other projects.',
   },
   {

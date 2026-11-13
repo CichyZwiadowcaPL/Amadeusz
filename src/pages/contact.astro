@@ -7,6 +7,7 @@ const topics = ['Engineering consultancy', 'Products', 'R&D partnership', 'Caree
 
 const channels = [
   { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+  { label: 'LinkedIn', value: 'ADG Aerospace', href: site.linkedin },
   { label: 'Location', value: site.location, href: undefined },
 ];
 ---
@@ -72,12 +73,26 @@ const channels = [
           <div class="card channel-card">
             <p class="channel-label">{channel.label}</p>
             {channel.href ? (
-              <a class="channel-value" href={channel.href}>{channel.value}</a>
+              <a
+                class="channel-value"
+                href={channel.href}
+                {...(channel.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                {channel.value}
+              </a>
             ) : (
               <p class="channel-value">{channel.value}</p>
             )}
           </div>
         ))}
+        <div class="card channel-card">
+          <p class="channel-label">Company details</p>
+          <p class="muted small">
+            {site.tradeName}<br />
+            KvK: {site.kvk}<br />
+            BTW-id: {site.vatId}
+          </p>
+        </div>
         <div class="card channel-card">
           <p class="channel-label">What happens next</p>
           <p class="muted small">
