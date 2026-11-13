@@ -19,7 +19,7 @@ export const programmes: Programme[] = [
     stage: 4,
     page: '/research/nuada-i',
     summary:
-      'Our first mission, started in 2021: a research-focused rocket that validated our own airframe, recovery and avionics systems. Nominated for the Dutch Aerospace Fund Prize in 2022.',
+      'Our first mission, started in 2021: a research-focused rocket that validated our own airframe, recovery and avionics systems. Nominated for the Dutch Aerospace Fund Award in 2022.',
     next: 'Laid the technical foundation for the company and for Nuada II.',
   },
   {
@@ -84,8 +84,8 @@ const log: Update[] = [
   {
     date: '2022',
     programme: 'Nuada I',
-    title: 'Nominated for the Dutch Aerospace Fund Prize',
-    body: 'The Nuada I project was nominated for the Dutch Aerospace Fund Prize.',
+    title: 'Nominated for the Dutch Aerospace Fund Award',
+    body: 'The Nuada I project was nominated for the Dutch Aerospace Fund Award.',
   },
   {
     date: '2021',

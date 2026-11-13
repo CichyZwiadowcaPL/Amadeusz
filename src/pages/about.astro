@@ -5,7 +5,7 @@ import { history } from '../data/history';
 
 const team = [
   { name: 'Amadeusz Gajewski', role: 'Founder & Lead Engineer' },
-  { name: 'Yuri Meijer', role: 'Structures Engineer' },
+  { name: 'Yuri Meijer', role: 'Head of Engineering' },
 ];
 
 // Open positions shown as "Looking for…" cards after the team.
@@ -29,10 +29,10 @@ const values = [
 
 <Layout title="About" description="The story and the people behind Aerospace Development Group.">
   <PageIntro eyebrow="About us" title="An engineering bureau built around its own R&D.">
-    Aerospace Development Group was founded in 2021 to develop its own rocketry systems.
-    Since then it has grown into an engineering bureau, registered in the Netherlands, that
-    develops its own aerospace technology and helps other companies with engineering
-    consultancy and product development.
+    ADG Aerospace started in January 2021 as Team ARIE Aerospace at Deltion College in Zwolle.
+    What began as a student rocketry team has grown into an engineering company, registered in
+    the Netherlands, that develops its own aerospace technology and helps other companies with
+    engineering consultancy and product development.
   </PageIntro>
 
   <section class="values">
@@ -43,6 +43,29 @@ const values = [
           <p>{value.body}</p>
         </div>
       ))}
+    </div>
+  </section>
+
+  <section class="mission">
+    <div class="wrap mission-grid">
+      <div class="card mission-card">
+        <p class="eyebrow">Mission</p>
+        <p class="mission-text">
+          ADG Aerospace develops innovative engineering solutions and advanced technologies for
+          the aerospace sector and related industries. Through research, development, consulting
+          and product innovation, we create value for our customers while advancing technological
+          progress. Rocketry and space engineering remain at the core of our identity and are the
+          driving force behind our expertise and ambitions.
+        </p>
+      </div>
+      <div class="vision-card">
+        <p class="eyebrow">Vision</p>
+        <blockquote>
+          To promote, encourage and support research, development, innovation and knowledge
+          sharing in the field of aviation and aerospace technology, as well as other
+          technological disciplines related thereto.
+        </blockquote>
+      </div>
     </div>
   </section>
 
@@ -69,12 +92,14 @@ const values = [
       <div class="card ecosystem-card">
         <div>
           <p class="eyebrow">Ecosystem</p>
-          <h2>Part of the Dutch aerospace &amp; technology community.</h2>
+          <h2>Member of Rocket Group the Netherlands.</h2>
         </div>
         <p>
-          We work with universities, aerospace organisations and student teams across the
-          Netherlands. These partnerships keep our research grounded and help bring new
-          technology to the wider ecosystem. Interested in working together?
+          Since 2024, ADG has been a member of Rocket Group the Netherlands (RGN), working
+          alongside Dutch student aerospace teams such as DARE (TU Delft), AQUILO (Inholland),
+          RISE (TU Twente &amp; VU Amsterdam), Space Society Twente and VOID (TU Eindhoven).
+          Through RGN we are part of a national — and increasingly European — aerospace network.
+          Interested in working together?
           <a href="/contact?topic=R%26D%20partnership">Get in touch</a>.
         </p>
       </div>
@@ -128,6 +153,46 @@ const values = [
   .team h2 {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin: 8px 0 32px;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .mission-card {
+    padding: 36px;
+  }
+
+  .mission-text {
+    margin: 12px 0 0;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+
+  .vision-card {
+    position: relative;
+    overflow: hidden;
+    padding: 36px;
+    border-radius: 16px;
+    color: #ffffff;
+    background:
+      radial-gradient(ellipse at 90% 10%, rgba(90, 140, 201, 0.35), transparent 60%),
+      linear-gradient(160deg, #0a1733, #060c1a);
+  }
+
+  .vision-card .eyebrow {
+    color: #8fb3e0;
+  }
+
+  .vision-card blockquote {
+    margin: 12px 0 0;
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    line-height: 1.5;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   .history-list {
@@ -272,6 +337,7 @@ const values = [
   @media (max-width: 860px) {
     .values-grid,
     .team-grid,
+    .mission-grid,
     .ecosystem-card {
       grid-template-columns: 1fr;
     }

@@ -1,28 +1,49 @@
 // Company history shown on /about. Oldest first.
+// Source: "ADG Aerospace – Company Introduction" (July 2026).
 export const history = [
   {
-    year: '2021',
-    title: 'Aerospace Development Group is founded',
-    body: 'The group starts developing its own rocketry systems and launches the Nuada I mission: a research-focused rocket that laid the foundation for the company’s future.',
+    year: 'January 2021',
+    title: 'Team ARIE Aerospace is founded',
+    body: 'Founded at Deltion College in Zwolle, with one goal: to show that a team of motivated students could design, build and launch a rocket.',
+  },
+  {
+    year: '2021 – 2022',
+    title: 'The Nuada programme begins',
+    body: 'Start of Nuada I, a solid-fuel rocket designed to reach an altitude of 3 km. The first partnerships with companies and schools are established.',
   },
   {
     year: '2022',
-    title: 'Nomination for the Dutch Aerospace Fund Prize',
-    body: 'The Nuada I project is nominated for the Dutch Aerospace Fund Prize, recognising the group’s work in research rocketry.',
+    title: 'Growing network and award nomination',
+    body: 'The partner network grows with educational institutions, technical companies and industry supporters, and the team is nominated for the Dutch Aerospace Fund Award.',
   },
   {
-    year: '2022 – 2026',
-    title: 'Growing national partnerships',
-    body: 'ADG works nationally with universities, aerospace organisations and student teams, sharing knowledge and developing technology together.',
+    year: '2023',
+    title: 'ARIE Aerospace becomes ADG Aerospace',
+    body: 'The new name, Aerospace Development Group, gives the organisation a clearer identity and reflects its ambitions and long-term vision.',
+  },
+  {
+    year: '2023 – 2024',
+    title: 'National recognition',
+    body: 'ADG becomes well known among Dutch student rocketry and aerospace teams, including DARE, AQUILO, RISE, Space Society Twente and VOID.',
+  },
+  {
+    year: '2024',
+    title: 'Member of Rocket Group the Netherlands',
+    body: 'ADG joins Rocket Group the Netherlands (RGN), expanding its network within the Dutch aerospace ecosystem.',
+  },
+  {
+    year: '2024 – today',
+    title: 'Developing core aerospace technologies',
+    body: 'Under the Nuada programme we develop solid rocket propulsion, avionics, recovery systems and flight hardware.',
   },
   {
     year: 'July 2026',
     title: 'Officially registered',
-    body: 'Aerospace Development Group is officially registered with the Dutch Chamber of Commerce (KvK).',
+    body: 'ADG Aerospace is registered with the Dutch Chamber of Commerce (KvK) and moves beyond the student-team model towards a professional engineering company.',
   },
   {
-    year: 'Today',
-    title: 'Research, development and engineering services',
-    body: 'ADG researches and develops its own aerospace technology, takes part in the Dutch aerospace and technology ecosystem, and helps other companies through engineering consultancy and product development.',
+    year: 'Next',
+    title: 'Looking ahead',
+    body: 'Expanding into hydrogen technologies, aerodynamic control systems and unmanned aerial systems (UAS) — and applying aerospace innovation in other sectors too.',
   },
 ];
