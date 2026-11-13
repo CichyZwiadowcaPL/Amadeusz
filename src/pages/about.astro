@@ -1,38 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { history } from '../data/history';
 
 const team = [
   { name: 'Amadeusz Gajewski', role: 'Founder & Lead Engineer' },
-  { name: 'Team member', role: 'Propulsion' },
-  { name: 'Team member', role: 'Avionics & Software' },
-  { name: 'Team member', role: 'Structures' },
+  { name: 'Yuri Meijer', role: 'Head of Engineering' },
 ];
+
+// Open positions shown as "Looking for…" cards after the team.
+const openRoles = ['Propulsion Engineer', 'Avionics & Software Engineer'];
 
 const values = [
   {
-    title: 'Mission',
-    body: 'Make aerospace engineering approachable by building small, well-documented projects that anyone can learn from.',
+    title: 'Research & development',
+    body: 'Our R&D team develops new technology in-house — from vehicles and propulsion to materials and electronics — and shares its progress openly.',
   },
   {
-    title: 'Approach',
-    body: 'Short iteration cycles, honest post-flight reviews, and a bias toward flying hardware over endless simulation.',
+    title: 'Engineering services',
+    body: 'The same people, tools and know-how are available to clients as engineering consultancy and product development.',
+  },
+  {
+    title: 'How we work',
+    body: 'Short iteration cycles, honest reviews after every test and a bias toward building real hardware over endless paperwork.',
   },
 ];
 ---
 
 <Layout title="About" description="The story and the people behind Aerospace Development Group.">
-  <section class="intro">
-    <div class="wrap intro-inner">
-      <p class="eyebrow">About us</p>
-      <h1>A small team founded around one idea: keep aerospace simple.</h1>
-      <p class="lede">
-        We started Aerospace Development Group to build the kind of small, real aerospace
-        projects we wished existed when we were learning — rockets and
-        avionics that are documented, testable, and built by a handful of
-        people rather than a big organization.
-      </p>
-    </div>
-  </section>
+  <PageIntro eyebrow="About us" title="An engineering bureau built around its own R&D.">
+    ADG Aerospace started in January 2021 as Team ARIE Aerospace at Deltion College in Zwolle.
+    What began as a student rocketry team has grown into an engineering company, registered in
+    the Netherlands, that develops its own aerospace technology and helps other companies with
+    engineering consultancy and product development.
+  </PageIntro>
 
   <section class="values">
     <div class="wrap grid values-grid">
@@ -42,6 +43,66 @@ const values = [
           <p>{value.body}</p>
         </div>
       ))}
+    </div>
+  </section>
+
+  <section class="mission">
+    <div class="wrap mission-grid">
+      <div class="card mission-card">
+        <p class="eyebrow">Mission</p>
+        <p class="mission-text">
+          ADG Aerospace develops innovative engineering solutions and advanced technologies for
+          the aerospace sector and related industries. Through research, development, consulting
+          and product innovation, we create value for our customers while advancing technological
+          progress. Rocketry and space engineering remain at the core of our identity and are the
+          driving force behind our expertise and ambitions.
+        </p>
+      </div>
+      <div class="vision-card">
+        <p class="eyebrow">Vision</p>
+        <blockquote>
+          To promote, encourage and support research, development, innovation and knowledge
+          sharing in the field of aviation and aerospace technology, as well as other
+          technological disciplines related thereto.
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="history">
+    <div class="wrap">
+      <p class="eyebrow">Our history</p>
+      <h2>From a rocketry project to an engineering bureau.</h2>
+      <ol class="history-list">
+        {history.map((item) => (
+          <li>
+            <p class="year">{item.year}</p>
+            <div class="history-body">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="ecosystem">
+    <div class="wrap">
+      <div class="card ecosystem-card">
+        <div>
+          <p class="eyebrow">Ecosystem</p>
+          <h2>Member of Rocket Group the Netherlands.</h2>
+        </div>
+        <p>
+          Since 2024, ADG has been a member of Rocket Group the Netherlands (RGN), working
+          alongside Dutch student aerospace teams such as DARE (TU Delft), AQUILO (Inholland),
+          RISE (TU Twente &amp; VU Amsterdam), Space Society Twente and VOID (TU Eindhoven).
+          Through RGN we are part of a national — and increasingly European — aerospace network.
+          Interested in working together?
+          <a href="/contact?topic=R%26D%20partnership">Get in touch</a>.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -59,29 +120,23 @@ const values = [
             </div>
           </div>
         ))}
+        {openRoles.map((role) => (
+          <a class="card team-card open-role" href="/contact?topic=Careers">
+            <div class="avatar avatar-open" aria-hidden="true">+</div>
+            <div>
+              <p class="team-name">Looking for: {role}</p>
+              <p class="team-role">Interested in joining? Get in touch →</p>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .intro-inner {
-    padding-block: 80px 40px;
-    max-width: 760px;
-  }
-
-  .intro h1 {
-    font-size: clamp(2rem, 4.5vw, 2.8rem);
-    margin: 16px 0 20px;
-  }
-
-  .lede {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-  }
-
   .values-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .values-grid h2 {
@@ -94,9 +149,131 @@ const values = [
     color: var(--text-muted);
   }
 
+  .history h2,
   .team h2 {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin: 8px 0 32px;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .mission-card {
+    padding: 36px;
+  }
+
+  .mission-text {
+    margin: 12px 0 0;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+
+  .vision-card {
+    position: relative;
+    overflow: hidden;
+    padding: 36px;
+    border-radius: 16px;
+    color: #ffffff;
+    background:
+      radial-gradient(ellipse at 90% 10%, rgba(90, 140, 201, 0.35), transparent 60%),
+      linear-gradient(160deg, #0a1733, #060c1a);
+  }
+
+  .vision-card .eyebrow {
+    color: #8fb3e0;
+  }
+
+  .vision-card blockquote {
+    margin: 12px 0 0;
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    line-height: 1.5;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .history-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 860px;
+  }
+
+  .history-list li {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+  }
+
+  .year {
+    margin: 0;
+    padding-top: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: right;
+  }
+
+  .history-body {
+    position: relative;
+    padding: 0 0 32px 28px;
+    border-left: 2px solid var(--border);
+  }
+
+  .history-list li:last-child .history-body {
+    padding-bottom: 0;
+  }
+
+  .history-body::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+    box-sizing: border-box;
+  }
+
+  .history-list li:last-child .history-body::before {
+    background: var(--accent);
+  }
+
+  .history-body h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+  }
+
+  .history-body p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .ecosystem-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px 48px;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .ecosystem-card h2 {
+    margin: 8px 0 0;
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  }
+
+  .ecosystem-card p:not(.eyebrow) {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .ecosystem-card a {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .team-grid {
@@ -123,6 +300,29 @@ const values = [
     color: var(--on-accent);
   }
 
+  .open-role {
+    border-style: dashed;
+    background: transparent;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .open-role:hover {
+    border-color: var(--accent);
+  }
+
+  .avatar-open {
+    background: none;
+    border: 2px dashed var(--border);
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .open-role .team-role {
+    color: var(--accent);
+  }
+
   .team-name {
     margin: 0;
     font-weight: 600;
@@ -134,10 +334,27 @@ const values = [
     font-size: 0.9rem;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 860px) {
     .values-grid,
-    .team-grid {
+    .team-grid,
+    .mission-grid,
+    .ecosystem-card {
       grid-template-columns: 1fr;
+    }
+
+    .ecosystem-card {
+      padding: 28px;
+    }
+
+    .history-list li {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .year {
+      text-align: left;
+      padding: 0 0 6px 28px;
+      border-left: 2px solid var(--border);
     }
   }
 </style>

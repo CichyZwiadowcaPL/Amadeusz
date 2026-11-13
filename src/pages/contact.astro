@@ -1,42 +1,71 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { site } from '../data/site';
 
-const contactEmail = 'info@adg-aerospace.com';
+const topics = ['Engineering consultancy', 'Product development', 'R&D partnership', 'Careers', 'Other'];
 
 const channels = [
-  { label: 'Email', value: contactEmail, href: `mailto:${contactEmail}` },
-  { label: 'Location', value: 'Poland', href: undefined },
+  { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+  { label: 'LinkedIn', value: 'linkedin.com/company/adg-aerospace ↗', href: site.linkedin },
+  { label: 'Location', value: site.location, href: undefined },
 ];
 ---
 
-<Layout title="Contact" description="Get in touch with the Aerospace Development Group team.">
-  <section class="intro">
-    <div class="wrap intro-inner">
-      <p class="eyebrow">Contact</p>
-      <h1>Let's talk.</h1>
-      <p class="lede">
-        Interested in what we're building, want to collaborate, or have
-        questions about a project? Send us a message.
-      </p>
-    </div>
-  </section>
+<Layout title="Contact" description="Get in touch with Aerospace Development Group.">
+  <PageIntro eyebrow="Contact" title="Let's talk.">
+    Need engineering support, help developing a product or want to collaborate on research?
+    Send us a message. The more you tell us about your project, the better we can help.
+  </PageIntro>
 
   <section class="contact">
     <div class="wrap contact-grid">
-      <form class="card form" method="post" action={`mailto:${contactEmail}`}>
+      <form
+        class="card form"
+        name="contact"
+        method="POST"
+        action="/thanks/"
+        data-netlify="true"
+        netlify-honeypot="company-website"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>Leave this empty <input name="company-website" /></label>
+        </p>
+        <div class="row">
+          <label>
+            Name
+            <input type="text" name="name" required placeholder="Your name" />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required placeholder="you@example.com" />
+          </label>
+        </div>
         <label>
-          Name
-          <input type="text" name="name" required placeholder="Your name" />
+          <span>Organisation <span class="optional">(optional)</span></span>
+          <input type="text" name="organisation" placeholder="Company or institution" />
         </label>
         <label>
-          Email
-          <input type="email" name="email" required placeholder="you@example.com" />
+          Topic
+          <select name="topic" id="topic">
+            {topics.map((t) => <option value={t}>{t}</option>)}
+          </select>
         </label>
         <label>
           Message
-          <textarea name="message" rows="5" required placeholder="What's on your mind?"></textarea>
+          <textarea
+            name="message"
+            rows="6"
+            required
+            placeholder="Describe your project, what you need and your timeline."
+          ></textarea>
         </label>
         <button class="btn btn-primary" type="submit">Send message</button>
+        <p class="form-error" id="form-error" hidden>
+          Something went wrong while sending your message. Please try again, or email us at
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
       </form>
 
       <div class="channels">
@@ -44,36 +73,101 @@ const channels = [
           <div class="card channel-card">
             <p class="channel-label">{channel.label}</p>
             {channel.href ? (
-              <a class="channel-value" href={channel.href}>{channel.value}</a>
+              <a
+                class="channel-value"
+                href={channel.href}
+                {...(channel.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                {channel.value}
+              </a>
             ) : (
               <p class="channel-value">{channel.value}</p>
             )}
           </div>
         ))}
+        <div class="card channel-card">
+          <p class="channel-label">Company details</p>
+          <p class="muted small">
+            {site.tradeName}<br />
+            KvK: {site.kvk}<br />
+            BTW-id: {site.vatId}
+          </p>
+        </div>
+        <div class="card channel-card">
+          <p class="channel-label">What happens next</p>
+          <p class="muted small">
+            We read every message and reply with a short call or written proposal to scope
+            your project.
+          </p>
+        </div>
       </div>
     </div>
   </section>
+
+  <dialog class="thanks" id="thanks-dialog" aria-labelledby="thanks-title">
+    <div class="thanks-icon" aria-hidden="true">✓</div>
+    <h2 id="thanks-title">Thank you for your message.</h2>
+    <p>We will contact you as soon as possible.</p>
+    <form method="dialog">
+      <button class="btn btn-primary" type="submit">Close</button>
+    </form>
+  </dialog>
 </Layout>
 
+<script>
+  // Submit the form in the background (Netlify Forms) and show a pop-up instead of a new page.
+  const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
+  const dialog = document.getElementById('thanks-dialog') as HTMLDialogElement | null;
+  const error = document.getElementById('form-error');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Sending…';
+    }
+    if (error) error.hidden = true;
+
+    try {
+      const data = new URLSearchParams();
+      new FormData(form).forEach((value, key) => data.append(key, String(value)));
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      form.reset();
+      if (dialog?.showModal) dialog.showModal();
+      else alert('Thank you for your message. We will contact you as soon as possible.');
+    } catch {
+      if (error) error.hidden = false;
+    } finally {
+      if (button) {
+        button.disabled = false;
+        button.textContent = 'Send message';
+      }
+    }
+  });
+
+  // Close the pop-up when clicking outside it.
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  // Pre-select the topic when linked as /contact?topic=Careers
+  const topic = new URLSearchParams(window.location.search).get('topic');
+  const select = document.getElementById('topic') as HTMLSelectElement | null;
+  if (topic && select && [...select.options].some((o) => o.value === topic)) {
+    select.value = topic;
+  }
+</script>
+
 <style>
-  .intro-inner {
-    padding-block: 80px 40px;
-    max-width: 640px;
-  }
-
-  .intro h1 {
-    font-size: clamp(2rem, 4.5vw, 2.8rem);
-    margin: 16px 0 20px;
-  }
-
-  .lede {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-  }
-
   .contact-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: 24px;
     align-items: start;
   }
@@ -81,6 +175,12 @@ const channels = [
   .form {
     display: flex;
     flex-direction: column;
+    gap: 18px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 18px;
   }
 
@@ -92,7 +192,16 @@ const channels = [
     color: var(--text-muted);
   }
 
+  .optional {
+    font-size: 0.8rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+
   .form input,
+  .form select,
   .form textarea {
     font-family: inherit;
     font-size: 1rem;
@@ -105,9 +214,65 @@ const channels = [
   }
 
   .form input:focus,
+  .form select:focus,
   .form textarea:focus {
     outline: none;
     border-color: var(--accent);
+  }
+
+  .form-error {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #b42318;
+  }
+
+  .form-error a {
+    color: inherit;
+    font-weight: 600;
+  }
+
+  .thanks {
+    width: min(420px, calc(100% - 32px));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px 28px;
+    text-align: center;
+    color: var(--text);
+    background: var(--bg);
+    box-shadow: 0 24px 60px rgba(6, 12, 26, 0.25);
+  }
+
+  .thanks::backdrop {
+    background: rgba(6, 12, 26, 0.45);
+    backdrop-filter: blur(2px);
+  }
+
+  .thanks-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--on-accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  }
+
+  .thanks h2 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+  }
+
+  .thanks p {
+    margin: 0 0 24px;
+    color: var(--text-muted);
+  }
+
+  .thanks button {
+    border: none;
+    cursor: pointer;
   }
 
   .form button {
@@ -140,12 +305,18 @@ const channels = [
     text-decoration: none;
   }
 
+  .small {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+
   a.channel-value:hover {
     color: var(--accent);
   }
 
   @media (max-width: 760px) {
-    .contact-grid {
+    .contact-grid,
+    .row {
       grid-template-columns: 1fr;
     }
   }

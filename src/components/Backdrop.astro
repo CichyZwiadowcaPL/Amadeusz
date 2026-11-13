@@ -1,0 +1,213 @@
+---
+// Decorative aerospace background: a calm night sky (dark) or a blueprint
+// grid with orbits (light). Purely visual, hidden from screen readers.
+interface Props {
+  variant?: 'dark' | 'light';
+}
+
+const { variant = 'light' } = Astro.props;
+
+// Deterministic "random" star field so every build looks the same.
+let seed = 7;
+const rand = () => {
+  seed = (seed * 16807) % 2147483647;
+  return seed / 2147483647;
+};
+const stars = Array.from({ length: 110 }, (_, i) => ({
+  x: Math.round(rand() * 1440),
+  y: Math.round(rand() * 560),
+  r: +(0.5 + rand() * 1.1).toFixed(2),
+  o: +(0.25 + rand() * 0.6).toFixed(2),
+  twinkle: i % 9 === 0,
+}));
+---
+
+<div class={`backdrop backdrop-${variant}`} aria-hidden="true">
+  <div class="grid-lines"></div>
+  {variant === 'dark' ? (
+    <svg viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="bd-planet" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0d1f45" />
+          <stop offset="1" stop-color="#060c1a" />
+        </linearGradient>
+        <linearGradient id="bd-trail" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#5a8cc9" stop-opacity="0" />
+          <stop offset="1" stop-color="#5a8cc9" stop-opacity="0.9" />
+        </linearGradient>
+        <radialGradient id="bd-glow">
+          <stop offset="0" stop-color="#cfe0f5" stop-opacity="1" />
+          <stop offset="0.35" stop-color="#5a8cc9" stop-opacity="0.6" />
+          <stop offset="1" stop-color="#5a8cc9" stop-opacity="0" />
+        </radialGradient>
+        <filter id="bd-blur" x="-20%" y="-50%" width="140%" height="200%">
+          <feGaussianBlur stdDeviation="14" />
+        </filter>
+      </defs>
+
+      <g class="stars">
+        {stars.map((s) => (
+          <circle cx={s.x} cy={s.y} r={s.r} fill="#ffffff" opacity={s.o} class={s.twinkle ? 'twinkle' : undefined} />
+        ))}
+      </g>
+
+      <ellipse class="orbit" cx="1120" cy="300" rx="430" ry="110" transform="rotate(-14 1120 300)" />
+      <ellipse class="orbit" cx="1120" cy="300" rx="560" ry="160" transform="rotate(-14 1120 300)" />
+
+      <path class="atmosphere" d="M -200 640 Q 720 455 1640 640" filter="url(#bd-blur)" />
+      <path d="M -200 660 Q 720 470 1640 660 L 1640 700 L -200 700 Z" fill="url(#bd-planet)" />
+      <path class="horizon" d="M -200 660 Q 720 470 1640 660" />
+
+      <path class="trajectory-solid" d="M 960 568 C 1080 520 1190 420 1300 170" stroke="url(#bd-trail)" />
+      <path class="trajectory" d="M 1300 170 C 1330 100 1350 60 1370 20" />
+      <circle cx="1300" cy="170" r="18" fill="url(#bd-glow)" />
+      <circle cx="1300" cy="170" r="2.6" fill="#ffffff" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 1440 420" preserveAspectRatio="xMaxYMid slice">
+      <ellipse class="orbit" cx="1180" cy="210" rx="360" ry="96" transform="rotate(-12 1180 210)" />
+      <ellipse class="orbit" cx="1180" cy="210" rx="250" ry="62" transform="rotate(-12 1180 210)" />
+      <path class="trajectory" d="M 820 400 C 980 360 1120 260 1250 70" />
+      <circle class="marker" cx="1250" cy="70" r="4" />
+      <circle class="marker-ring" cx="1250" cy="70" r="11" />
+    </svg>
+  )}
+</div>
+
+<style>
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-size: 56px 56px;
+  }
+
+  /* ---------- Dark: night sky ---------- */
+  .backdrop-dark {
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(90, 140, 201, 0.18), transparent 55%),
+      linear-gradient(180deg, #050a16 0%, #0a1733 70%, #0d1f45 100%);
+  }
+
+  .backdrop-dark .grid-lines {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse at 75% 40%, #000 0%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse at 75% 40%, #000 0%, transparent 65%);
+  }
+
+  .backdrop-dark .orbit {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.07);
+    stroke-width: 1;
+  }
+
+  .atmosphere {
+    fill: none;
+    stroke: #5a8cc9;
+    stroke-width: 26;
+    opacity: 0.55;
+  }
+
+  .horizon {
+    fill: none;
+    stroke: #8fb3e0;
+    stroke-width: 1.5;
+    opacity: 0.8;
+  }
+
+  .trajectory-solid {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .backdrop-dark .trajectory {
+    fill: none;
+    stroke: #8fb3e0;
+    stroke-width: 1.5;
+    stroke-dasharray: 3 7;
+    opacity: 0.6;
+  }
+
+  /* ---------- Light: blueprint ---------- */
+  .backdrop-light .grid-lines {
+    background-image:
+      linear-gradient(rgba(20, 51, 107, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20, 51, 107, 0.06) 1px, transparent 1px);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 55%, #000 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%, #000 100%);
+    opacity: 0.9;
+  }
+
+  .backdrop-light .orbit {
+    fill: none;
+    stroke: rgba(20, 51, 107, 0.14);
+    stroke-width: 1;
+  }
+
+  .backdrop-light .trajectory {
+    fill: none;
+    stroke: #5a8cc9;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 7;
+    opacity: 0.8;
+  }
+
+  .marker {
+    fill: #5a8cc9;
+  }
+
+  .marker-ring {
+    fill: none;
+    stroke: #5a8cc9;
+    opacity: 0.35;
+  }
+
+  @media (max-width: 760px) {
+    .backdrop-light svg {
+      display: none;
+    }
+  }
+
+  /* ---------- Gentle motion ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .twinkle {
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    .trajectory {
+      animation: dash 6s linear infinite;
+    }
+  }
+
+  @keyframes twinkle {
+    from {
+      opacity: 0.15;
+    }
+    to {
+      opacity: 0.95;
+    }
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -60;
+    }
+  }
+</style>

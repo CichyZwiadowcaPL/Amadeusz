@@ -1,0 +1,37 @@
+---
+import type { Partner } from '../data/partners';
+
+interface Props {
+  partner: Partner;
+}
+
+const { partner } = Astro.props;
+---
+
+{partner.logo ? (
+  <img class="partner-logo" src={partner.logo} alt={partner.name} loading="lazy" />
+) : (
+  <span class="partner-wordmark">{partner.name}</span>
+)}
+
+<style>
+  .partner-logo {
+    display: block;
+    max-height: 44px;
+    max-width: min(140px, 100%);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* lets logos with a white background blend into light cards */
+    mix-blend-mode: multiply;
+  }
+
+  .partner-wordmark {
+    display: block;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    text-align: center;
+  }
+</style>

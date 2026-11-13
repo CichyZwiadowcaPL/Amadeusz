@@ -1,0 +1,49 @@
+---
+import Backdrop from './Backdrop.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+}
+
+const { eyebrow, title } = Astro.props;
+---
+
+<section class="intro">
+  <Backdrop variant="light" />
+  <div class="wrap intro-inner">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lede"><slot /></p>
+  </div>
+</section>
+
+<style>
+  .intro {
+    position: relative;
+    padding-block: 0;
+    isolation: isolate;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intro-inner {
+    position: relative;
+    z-index: 1;
+    padding-block: 72px 56px;
+  }
+
+  .intro-inner > * {
+    max-width: 760px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    margin: 16px 0 20px;
+  }
+
+  .lede {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+</style>
